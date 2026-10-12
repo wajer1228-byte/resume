@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>求職履歷資訊問卷與生成器</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    /* 基礎字體與滾動條 */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+    }
+    
+    /* 履歷列印/PDF 專用樣式 */
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #resume-preview-sheet, #resume-preview-sheet * {
+        visibility: visible;
+      }
+      #resume-preview-sheet {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        padding: 20px !important;
+        box-shadow: none !important;
+        border: none !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+
+    /* 標籤徽章淡入效果 */
+    .fade-in {
+      animation: fadeIn 0.25s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+
+  <!-- 頂部導覽列 (No Print) -->
+  <header class="no-print bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold shadow-md shadow-blue-500/20">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-lg font-bold text-slate-900 tracking-tight">求職履歷資訊問卷</h1>
+          <p class="text-xs text-slate-500">標準通用求職版・填寫即時預覽與匯出</p>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-2">
+        <button id="btn-demo" class="px-3 py-1.5 text-xs sm:text-sm font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+          </svg>
+          填入範例資料
+        </button>
+        <button id="btn-clear" class="px-3 py-1.5 text-xs sm:text-sm font-medium text-rose-600 hover:bg-rose-50 rounded-lg transition-colors">
+          清空
+        </button>
+        <button id="btn-export-json" class="px-3 py-1.5 text-xs sm:text-sm font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors hidden md:inline-flex">
+          備份 JSON
+        </button>
+        <button id="btn-print" class="px-4 py-1.5 text-xs sm:text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 shadow-sm rounded-lg transition-colors flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+          </svg>
+          列印 / 匯出 PDF
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 手機版視圖切換標籤 (No Print) -->
+  <div class="no-print lg:hidden bg-white border-b border-slate-200 px-4 py-2 flex gap-2 justify-center">
+    <button id="tab-form-btn" class="flex-1 py-2 text-center text-sm font-semibold text-blue-600 border-b-2 border-blue-600">填寫問卷</button>
+    <button id="tab-preview-btn" class="flex-1 py-2 text-center text-sm font-medium text-slate-500 hover:text-slate-800">履歷即時預覽</button>
+  </div>
+
+  <!-- 主要內容區：雙欄佈局 (左欄問卷填寫、右欄履歷即時預覽) -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    
+    <!-- 左側：履歷問卷表單 (7 欄寬) -->
+    <div id="form-column" class="lg:col-span-7 space-y-6">
+
+      <!-- 問卷導覽步數提示卡 -->
+      <div class="bg-blue-50/60 border border-blue-100 rounded-2xl p-4 flex items-center justify-between text-xs sm:text-sm text-blue-900">
+        <div class="flex items-center gap-2">
+          <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-blue-600 text-white font-bold text-xs">i</span>
+          <span>問卷資料會<b>自動儲存在瀏覽器</b>，重新整理或關閉皆不會遺失。</span>
+        </div>
+        <span id="save-status" class="text-xs text-blue-600 font-medium">已即時儲存</span>
+      </div>
+
+      <!-- 區塊 1: 基本個人資訊 -->
+      <section class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+        <div class="flex items-center gap-3 pb-3 border-b border-slate-100">
+          <div class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-sm">1</div>
+          <div>
+            <h2 class="text-base font-bold text-slate-900">基本資料 (Personal Info)</h2>
+            <p class="text-xs text-slate-500">面試官與企業聯絡您的第一步</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">中文姓名 <span class="text-rose-500">*</span></label>
+            <input type="text" id="input-name" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="例如：陳大明">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">英文姓名 / 暱稱</label>
+            <input type="text" id="input-en-name" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="例如：David Chen">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">聯絡電話 <span class="text-rose-500">*</span></label>
+            <input type="tel" id="input-phone" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="例如：0912-345-678">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">電子郵件 <span class="text-rose-500">*</span></label>
+            <input type="email" id="input-email" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="例如：david.chen@example.com">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">現居地點</label>
+            <input type="text" id="input-location" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="例如：台北市信義區">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">求職現況</label>
+            <select id="input-job-status" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+              <option value="積極尋找工作中">積極尋找工作中 (可在近期到職)</option>
+              <option value="在職中，尋求更好機會">在職中，尋求更好機會</option>
+              <option value="應屆畢業生求職">應屆畢業生求職</option>
+              <option value="接案 / 自由工作者">接案 / 自由工作者</option>
+            </select>
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block text-xs font-semibold text-slate-700 mb-1">個人網站 / LinkedIn / 作品集連結</label>
+            <input type="url" id="input-website" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="例如：https://linkedin.com/in/david-chen 或 GitHub">
+          </div>
+        </div>
+      </section>
+
+      <!-- 區塊 2: 求職意向 -->
+      <section class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+        <div class="flex items-center gap-3 pb-3 border-b border-slate-100">
+          <div class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-sm">2</div>
+          <div>
+            <h2 class="text-base font-bold text-slate-900">求職意向 (Target Role)</h2>
+            <p class="text-xs text-slate-500">明確說明您期待的職位與就業條件</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">期望應徵職稱 <span class="text-rose-500">*</span></label>
+            <input type="text" id="input-target-title" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="例如：資深前端工程師 / 產品行銷專員">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">期望工作型態</label>
+            <select id="input-work-type" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
+              <option value="全職 (Full-time)">全職 (Full-time)</option>
+              <option value="兼職 / 部分工時 (Part-time)">兼職 / 部分工時 (Part-time)</option>
+              <option value="遠端 / 混合辦公 (Remote/Hybrid)">遠端 / 混合辦公 (Remote/Hybrid)</option>
+              <option value="約聘 / 專案 (Contract)">約聘 / 專案 (Contract)</option>
+              <option value="實習 (Internship)">實習 (Internship)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">期望薪資待遇</label>
+            <input type="text" id="input-expected-salary" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="例如：月薪 60,000 ~ 75,000 或 面議">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">最快可到職日</label>
+            <input type="text" id="input-available-date" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="例如：錄取後兩週內 / 即時">
+          </div>
+        </div>
+      </section>
+
+      <!-- 區塊 3: 學歷背景 (支援多筆) -->
+      <section class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-sm">3</div>
+            <div>
+              <h2 class="text-base font-bold text-slate-900">學歷背景 (Education)</h2>
+              <p class="text-xs text-slate-500">最高學歷優先填寫</p>
+            </div>
+          </div>
+          <button type="button" id="btn-add-edu" class="text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1">
+            + 新增學歷
+          </button>
+        </div>
+
+        <div id="education-list" class="space-y-4">
+          <!-- 動態生成的學歷卡片將插在此處 -->
+        </div>
+      </section>
+
+      <!-- 區塊 4: 工作與實習經歷 (支援多筆) -->
+      <section class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-sm">4</div>
+            <div>
+              <h2 class="text-base font-bold text-slate-900">工作經歷 (Work Experience)</h2>
+              <p class="text-xs text-slate-500">建議條列具體成果與量化績效 (STAR 原則)</p>
+            </div>
+          </div>
+          <button type="button" id="btn-add-exp" class="text-xs font-semibold text-amber-700 bg-amber-50 hover:bg-amber-100 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1">
+            + 新增工作經歷
+          </button>
+        </div>
+
+        <div id="experience-list" class="space-y-4">
+          <!-- 動態生成的工作經歷卡片將插在此處 -->
+        </div>
+      </section>
+
+      <!-- 區塊 5: 專業技能與證照語言 -->
+      <section class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+        <div class="flex items-center gap-3 pb-3 border-b border-slate-100">
+          <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center font-bold text-sm">5</div>
+          <div>
+            <h2 class="text-base font-bold text-slate-900">專業技能與語言 (Skills & Languages)</h2>
+            <p class="text-xs text-slate-500">展現核心競爭力與工具掌握度</p>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">核心專業技能 (使用逗號或換行分隔)</label>
+            <input type="text" id="input-skills" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="例如：React, TypeScript, TailwindCSS, 專案管理, 數據分析, Figma">
+            <p class="text-xs text-slate-400 mt-1">輸入逗號將自動拆分為技能標籤</p>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">外語能力與檢定等級</label>
+              <input type="text" id="input-languages" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="例如：英文 (多益 880分 / 流利)、日文 (N2)">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">專業證照或競賽獎項</label>
+              <input type="text" id="input-certifications" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="例如：AWS 雲端架構師認證、PMP 專案管理師">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 區塊 6: 自傳與個人核心亮點 -->
+      <section class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+        <div class="flex items-center gap-3 pb-3 border-b border-slate-100">
+          <div class="w-8 h-8 rounded-lg bg-teal-100 text-teal-700 flex items-center justify-center font-bold text-sm">6</div>
+          <div>
+            <h2 class="text-base font-bold text-slate-900">自傳與職涯簡介 (Summary & Bio)</h2>
+            <p class="text-xs text-slate-500">以 200~500 字概述個人優勢與發展目標</p>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">個人簡述 / 自傳核心內容</label>
+          <textarea id="input-summary" rows="5" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder="請簡述您的核心競爭力、職涯亮點、重大專案經驗與對應徵此職位的熱忱..."></textarea>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- 右側：即時預覽面版 (5 欄寬，大螢幕 Sticky 固定) -->
+    <div id="preview-column" class="lg:col-span-5 sticky top-20">
+      <div class="no-print bg-slate-900 text-white rounded-t-2xl p-4 flex items-center justify-between shadow-sm">
+        <div class="flex items-center gap-2">
+          <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="text-sm font-bold tracking-wide">即時履歷預覽</span>
+        </div>
+        <span class="text-xs text-slate-400">A4 版型優化</span>
+      </div>
+
+      <!-- 預覽紙張區塊 -->
+      <div id="resume-preview-sheet" class="bg-white border-x border-b border-slate-200 rounded-b-2xl p-6 sm:p-8 shadow-sm text-slate-800 space-y-6">
+        
+        <!-- 履歷頭部 -->
+        <div class="border-b border-slate-200 pb-5">
+          <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+            <h1 id="preview-name" class="text-2xl font-black text-slate-900 tracking-tight">尚未填寫姓名</h1>
+            <span id="preview-en-name" class="text-sm font-semibold text-slate-500"></span>
+          </div>
+          <div id="preview-target" class="text-base font-bold text-blue-600 mt-1">
+            目標職位：<span id="preview-target-text" class="text-slate-800">尚未填寫</span>
+          </div>
+          
+          <!-- 聯絡與社群連結 -->
+          <div class="flex flex-wrap gap-y-1 gap-x-3 text-xs text-slate-600 mt-3 pt-2 border-t border-slate-100">
+            <span id="preview-phone" class="inline-flex items-center gap-1">📞 -</span>
+            <span id="preview-email" class="inline-flex items-center gap-1">✉️ -</span>
+            <span id="preview-location" class="inline-flex items-center gap-1">📍 -</span>
+            <span id="preview-website" class="inline-flex items-center gap-1">🔗 -</span>
+          </div>
+        </div>
+
+        <!-- 履歷自傳簡介 -->
+        <div id="preview-summary-sec" class="space-y-1.5">
+          <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400">個人簡介 / Professional Summary</h2>
+          <p id="preview-summary" class="text-xs leading-relaxed text-slate-700 whitespace-pre-line text-justify">
+            請在左側填寫個人自傳與亮點簡述...
+          </p>
+        </div>
+
+        <!-- 履歷核心技能 -->
+        <div id="preview-skills-sec" class="space-y-2">
+          <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400">核心技能與證照 / Skills & Certs</h2>
+          <div id="preview-skills-tags" class="flex flex-wrap gap-1.5">
+            <span class="text-xs text-slate-400 italic">尚無技能標籤</span>
+          </div>
+          <div id="preview-languages-text" class="text-xs text-slate-600 mt-1"></div>
+          <div id="preview-certs-text" class="text-xs text-slate-600"></div>
+        </div>
+
+        <!-- 履歷工作經歷 -->
+        <div id="preview-exp-sec" class="space-y-3">
+          <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400">工作經歷 / Work Experience</h2>
+          <div id="preview-exp-list" class="space-y-3">
+            <p class="text-xs text-slate-400 italic">尚未新增工作經歷</p>
+          </div>
+        </div>
+
+        <!-- 履歷學歷背景 -->
+        <div id="preview-edu-sec" class="space-y-2">
+          <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400">學歷背景 / Education</h2>
+          <div id="preview-edu-list" class="space-y-2">
+            <p class="text-xs text-slate-400 italic">尚未新增學歷資料</p>
+          </div>
+        </div>
+
+        <!-- 期望條件 (Footer) -->
+        <div class="pt-4 border-t border-slate-100 flex flex-wrap justify-between text-xs text-slate-500">
+          <div>期望待遇：<span id="preview-salary" class="font-medium text-slate-700">面議</span></div>
+          <div>可到職日：<span id="preview-available" class="font-medium text-slate-700">即時</span></div>
+          <div>工作型態：<span id="preview-worktype" class="font-medium text-slate-700">全職</span></div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- 頁尾 (No Print) -->
+  <footer class="no-print bg-white border-t border-slate-200 mt-12 py-6 text-center text-xs text-slate-400">
+    求職履歷資訊問卷系統 &copy; 2026. 支援一鍵匯出、本機儲存與響應式填寫.
+  </footer>
+
+  <!-- 核心 JavaScript 邏輯 -->
+  <script>
+    // 資料模型
+    const resumeData = {
+      name: '',
+      enName: '',
+      phone: '',
+      email: '',
+      location: '',
+      jobStatus: '積極尋找工作中',
+      website: '',
+      targetTitle: '',
+      workType: '全職 (Full-time)',
+      expectedSalary: '',
+      availableDate: '',
+      summary: '',
+      skills: '',
+      languages: '',
+      certifications: '',
+      education: [],
+      experience: []
+    };
+
+    const STORAGE_KEY = 'agy_resume_questionnaire_v2';
+
+    // 初始化範例資料（依您的經歷量身打造）
+    const demoData = {
+      name: '求職者姓名',
+      enName: '',
+      phone: '0912-345-678',
+      email: 'your.email@example.com',
+      location: '台灣',
+      jobStatus: '積極尋找工作中',
+      website: '',
+      targetTitle: '餐飲門市店長 / 營運督導 / 倉儲物流主管',
+      workType: '全職 (Full-time)',
+      expectedSalary: '月薪 NT$ 70,000 ~ 75,000 (可面議)',
+      availableDate: '面試錄取後 2 週內可到職',
+      summary: '具備 2 年連鎖手搖茶飲門市副店長實務管理經驗，專精門市日常營運、全方位進銷存管理與人員教育培訓。具備出色的物料需求預測、進貨驗收、安全庫存控管與損耗降低能力。同時負責新進同仁 SOP 訓練與排班調度，團隊管理風格紮實。具汽修科實作與排錯背景，動手能力強且抗壓性高；任職期間因營運管理成果優異，月薪達 7 萬元肯定。',
+      skills: '門市營運管理, 進銷存管理 (Inventory), 庫存盤點與效期控管, 物料採購與驗收, 員工教育訓練 (OJT), 標準作業程序 (SOP), 排班與人力調度, 成本與耗損控制, 設備基礎保養與維護',
+      languages: '中文 (母語 / 流利溝通)',
+      certifications: '汽修相關專業技能檢定 / 門市內部副店長管理認證',
+      education: [
+        {
+          id: 1,
+          school: '高級職業學校',
+          major: '汽車修護科',
+          degree: '高職畢業',
+          period: '畢業',
+          details: '奠定紮實之機械原理、手工具操作、設備檢修與邏輯排錯實作能力。'
+        }
+      ],
+      experience: [
+        {
+          id: 1,
+          company: '連鎖手搖飲門市',
+          title: '副店長',
+          period: '任職 2 年',
+          details: '1. 【進銷存與物料控管】：主導全門市茶葉、包材、乳品等物料進出貨驗收與每日/每週庫存盤點；建立原料消耗安全水位預警機制，使原物料耗損率顯著降低。\n2. 【員工訓練與 SOP 落實】：主責門市兼職與正職人員之職前培訓（含飲品調配、收銀應對、食品衛生安全），建立標準化作業程序，有效縮短新人上手時間。\n3. 【營運管理與績效達成】：統籌門市日常運作、尖峰時段出杯動線優化、排班人力配置與客訴應變；因出色的營運管理績效與責任心，月薪獲評核達 70,000 元高標準。'
+        }
+      ]
+    };
+
+    // DOM 元素引用
+    const inputs = {
+      name: document.getElementById('input-name'),
+      enName: document.getElementById('input-en-name'),
+      phone: document.getElementById('input-phone'),
+      email: document.getElementById('input-email'),
+      location: document.getElementById('input-location'),
+      jobStatus: document.getElementById('input-job-status'),
+      website: document.getElementById('input-website'),
+      targetTitle: document.getElementById('input-target-title'),
+      workType: document.getElementById('input-work-type'),
+      expectedSalary: document.getElementById('input-expected-salary'),
+      availableDate: document.getElementById('input-available-date'),
+      summary: document.getElementById('input-summary'),
+      skills: document.getElementById('input-skills'),
+      languages: document.getElementById('input-languages'),
+      certifications: document.getElementById('input-certifications')
+    };
+
+    const eduListContainer = document.getElementById('education-list');
+    const expListContainer = document.getElementById('experience-list');
+    const saveStatusEl = document.getElementById('save-status');
+
+    // 預覽元素引用
+    const preview = {
+      name: document.getElementById('preview-name'),
+      enName: document.getElementById('preview-en-name'),
+      targetText: document.getElementById('preview-target-text'),
+      phone: document.getElementById('preview-phone'),
+      email: document.getElementById('preview-email'),
+      location: document.getElementById('preview-location'),
+      website: document.getElementById('preview-website'),
+      summary: document.getElementById('preview-summary'),
+      skillsTags: document.getElementById('preview-skills-tags'),
+      languagesText: document.getElementById('preview-languages-text'),
+      certsText: document.getElementById('preview-certs-text'),
+      expList: document.getElementById('preview-exp-list'),
+      eduList: document.getElementById('preview-edu-list'),
+      salary: document.getElementById('preview-salary'),
+      available: document.getElementById('preview-available'),
+      worktype: document.getElementById('preview-worktype')
+    };
+
+    // 儲存至 LocalStorage
+    function saveToStorage() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(resumeData));
+        saveStatusEl.textContent = '已即時儲存';
+        saveStatusEl.className = 'text-xs text-blue-600 font-medium';
+      } catch (e) {
+        console.error('儲存失敗', e);
+      }
+    }
+
+    // 從 LocalStorage 載入
+    function loadFromStorage() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          Object.assign(resumeData, parsed);
+          syncDataToForm();
+          updatePreview();
+          return true;
+        }
+      } catch (e) {
+        console.error('讀取失敗', e);
+      }
+      return false;
+    }
+
+    // 將資料同步到表單輸入框
+    function syncDataToForm() {
+      inputs.name.value = resumeData.name || '';
+      inputs.enName.value = resumeData.enName || '';
+      inputs.phone.value = resumeData.phone || '';
+      inputs.email.value = resumeData.email || '';
+      inputs.location.value = resumeData.location || '';
+      inputs.jobStatus.value = resumeData.jobStatus || '積極尋找工作中';
+      inputs.website.value = resumeData.website || '';
+      inputs.targetTitle.value = resumeData.targetTitle || '';
+      inputs.workType.value = resumeData.workType || '全職 (Full-time)';
+      inputs.expectedSalary.value = resumeData.expectedSalary || '';
+      inputs.availableDate.value = resumeData.availableDate || '';
+      inputs.summary.value = resumeData.summary || '';
+      inputs.skills.value = resumeData.skills || '';
+      inputs.languages.value = resumeData.languages || '';
+      inputs.certifications.value = resumeData.certifications || '';
+
+      renderEducationForms();
+      renderExperienceForms();
+    }
+
+    // 渲染學歷表單區塊
+    function renderEducationForms() {
+      eduListContainer.innerHTML = '';
+      if (!resumeData.education || resumeData.education.length === 0) {
+        eduListContainer.innerHTML = `
+          <div class="p-4 bg-slate-50 border border-dashed border-slate-200 rounded-xl text-center text-xs text-slate-400">
+            目前無學歷項目，點擊右上角「+ 新增學歷」添加
+          </div>
+        `;
+        return;
+      }
+
+      resumeData.education.forEach((edu, idx) => {
+        const div = document.createElement('div');
+        div.className = 'p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-3 relative fade-in';
+        div.innerHTML = `
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-600">學歷 #${idx + 1}</span>
+            <button type="button" class="btn-del-edu text-xs text-rose-500 hover:text-rose-700 font-medium" data-id="${edu.id}">刪除此筆</button>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs text-slate-600 mb-1">學校名稱</label>
+              <input type="text" class="edu-school w-full px-2.5 py-1.5 text-xs sm:text-sm border border-slate-300 rounded-lg bg-white" data-id="${edu.id}" value="${edu.school || ''}" placeholder="例如：台灣大學">
+            </div>
+            <div>
+              <label class="block text-xs text-slate-600 mb-1">科系所屬</label>
+              <input type="text" class="edu-major w-full px-2.5 py-1.5 text-xs sm:text-sm border border-slate-300 rounded-lg bg-white" data-id="${edu.id}" value="${edu.major || ''}" placeholder="例如：資訊工程研究所">
+            </div>
+            <div>
+              <label class="block text-xs text-slate-600 mb-1">學位 / 狀態</label>
+              <input type="text" class="edu-degree w-full px-2.5 py-1.5 text-xs sm:text-sm border border-slate-300 rounded-lg bg-white" data-id="${edu.id}" value="${edu.degree || ''}" placeholder="例如：碩士 / 畢業">
+            </div>
+            <div>
+              <label class="block text-xs text-slate-600 mb-1">在學期間</label>
+              <input type="text" class="edu-period w-full px-2.5 py-1.5 text-xs sm:text-sm border border-slate-300 rounded-lg bg-white" data-id="${edu.id}" value="${edu.period || ''}" placeholder="例如：2019.09 - 2021.06">
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-xs text-slate-600 mb-1">榮譽成就 / 相關說明 (選填)</label>
+              <input type="text" class="edu-details w-full px-2.5 py-1.5 text-xs sm:text-sm border border-slate-300 rounded-lg bg-white" data-id="${edu.id}" value="${edu.details || ''}" placeholder="例如：成績優異獲書卷獎、參與跨領域研究計畫">
+            </div>
+          </div>
+        `;
+        eduListContainer.appendChild(div);
+      });
+
+      // 綁定事件
+      eduListContainer.querySelectorAll('.btn-del-edu').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = Number(e.target.dataset.id);
+          resumeData.education = resumeData.education.filter(x => x.id !== id);
+          renderEducationForms();
+          updatePreview();
+          saveToStorage();
+        });
+      });
+
+      eduListContainer.querySelectorAll('input').forEach(input => {
+        input.addEventListener('input', (e) => {
+          const id = Number(e.target.dataset.id);
+          const target = resumeData.education.find(x => x.id === id);
+          if (target) {
+            if (e.target.classList.contains('edu-school')) target.school = e.target.value;
+            if (e.target.classList.contains('edu-major')) target.major = e.target.value;
+            if (e.target.classList.contains('edu-degree')) target.degree = e.target.value;
+            if (e.target.classList.contains('edu-period')) target.period = e.target.value;
+            if (e.target.classList.contains('edu-details')) target.details = e.target.value;
+            updatePreview();
+            saveToStorage();
+          }
+        });
+      });
+    }
+
+    // 渲染工作經歷表單區塊
+    function renderExperienceForms() {
+      expListContainer.innerHTML = '';
+      if (!resumeData.experience || resumeData.experience.length === 0) {
+        expListContainer.innerHTML = `
+          <div class="p-4 bg-slate-50 border border-dashed border-slate-200 rounded-xl text-center text-xs text-slate-400">
+            目前無工作經歷，點擊右上角「+ 新增工作經歷」添加
+          </div>
+        `;
+        return;
+      }
+
+      resumeData.experience.forEach((exp, idx) => {
+        const div = document.createElement('div');
+        div.className = 'p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-3 relative fade-in';
+        div.innerHTML = `
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-600">經歷 #${idx + 1}</span>
+            <button type="button" class="btn-del-exp text-xs text-rose-500 hover:text-rose-700 font-medium" data-id="${exp.id}">刪除此筆</button>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs text-slate-600 mb-1">任職公司</label>
+              <input type="text" class="exp-company w-full px-2.5 py-1.5 text-xs sm:text-sm border border-slate-300 rounded-lg bg-white" data-id="${exp.id}" value="${exp.company || ''}" placeholder="例如：知名科技公司">
+            </div>
+            <div>
+              <label class="block text-xs text-slate-600 mb-1">職位職稱</label>
+              <input type="text" class="exp-title w-full px-2.5 py-1.5 text-xs sm:text-sm border border-slate-300 rounded-lg bg-white" data-id="${exp.id}" value="${exp.title || ''}" placeholder="例如：前端工程師">
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-xs text-slate-600 mb-1">任職期間</label>
+              <input type="text" class="exp-period w-full px-2.5 py-1.5 text-xs sm:text-sm border border-slate-300 rounded-lg bg-white" data-id="${exp.id}" value="${exp.period || ''}" placeholder="例如：2022.03 - 2024.12 或 2024.01 - 至今">
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-xs text-slate-600 mb-1">工作內容、亮點成效 (建議條列並量化成果)</label>
+              <textarea class="exp-details w-full px-2.5 py-1.5 text-xs sm:text-sm border border-slate-300 rounded-lg bg-white" rows="3" data-id="${exp.id}" placeholder="1. 負責何種產品或模組開發&#10;2. 解決的核心難題與取得的量化指標 (例如營收提升 20%、耗時減少 40%)">${exp.details || ''}</textarea>
+            </div>
+          </div>
+        `;
+        expListContainer.appendChild(div);
+      });
+
+      // 綁定事件
+      expListContainer.querySelectorAll('.btn-del-exp').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = Number(e.target.dataset.id);
+          resumeData.experience = resumeData.experience.filter(x => x.id !== id);
+          renderExperienceForms();
+          updatePreview();
+          saveToStorage();
+        });
+      });
+
+      expListContainer.querySelectorAll('input, textarea').forEach(el => {
+        el.addEventListener('input', (e) => {
+          const id = Number(e.target.dataset.id);
+          const target = resumeData.experience.find(x => x.id === id);
+          if (target) {
+            if (e.target.classList.contains('exp-company')) target.company = e.target.value;
+            if (e.target.classList.contains('exp-title')) target.title = e.target.value;
+            if (e.target.classList.contains('exp-period')) target.period = e.target.value;
+            if (e.target.classList.contains('exp-details')) target.details = e.target.value;
+            updatePreview();
+            saveToStorage();
+          }
+        });
+      });
+    }
+
+    // 即時更新右側預覽畫面
+    function updatePreview() {
+      preview.name.textContent = resumeData.name || '姓名尚未填寫';
+      preview.enName.textContent = resumeData.enName ? `(${resumeData.enName})` : '';
+      preview.targetText.textContent = resumeData.targetTitle || '尚未填寫';
+
+      preview.phone.textContent = resumeData.phone ? `📞 ${resumeData.phone}` : '📞 待填寫電話';
+      preview.email.textContent = resumeData.email ? `✉️ ${resumeData.email}` : '✉️ 待填寫 Email';
+      preview.location.textContent = resumeData.location ? `📍 ${resumeData.location}` : '📍 待填寫地區';
+      
+      if (resumeData.website) {
+        preview.website.innerHTML = `🔗 <a href="${resumeData.website}" target="_blank" class="underline text-blue-600">${resumeData.website.replace(/^https?:\/\//, '')}</a>`;
+      } else {
+        preview.website.textContent = '🔗 無個人連結';
+      }
+
+      preview.summary.textContent = resumeData.summary || '尚未填寫個人簡述與亮點。';
+
+      // 技能標籤處理
+      preview.skillsTags.innerHTML = '';
+      if (resumeData.skills && resumeData.skills.trim()) {
+        const tags = resumeData.skills.split(/[,，\n]+/).map(s => s.trim()).filter(Boolean);
+        tags.forEach(tag => {
+          const span = document.createElement('span');
+          span.className = 'px-2 py-0.5 bg-slate-100 text-slate-800 text-xs rounded font-medium border border-slate-200';
+          span.textContent = tag;
+          preview.skillsTags.appendChild(span);
+        });
+      } else {
+        preview.skillsTags.innerHTML = '<span class="text-xs text-slate-400 italic">尚未輸入技能</span>';
+      }
+
+      preview.languagesText.textContent = resumeData.languages ? `🌐 語言能力：${resumeData.languages}` : '';
+      preview.certsText.textContent = resumeData.certifications ? `🏆 證照與獎項：${resumeData.certifications}` : '';
+
+      // 工作經歷預覽
+      preview.expList.innerHTML = '';
+      if (resumeData.experience && resumeData.experience.length > 0) {
+        resumeData.experience.forEach(exp => {
+          const div = document.createElement('div');
+          div.className = 'border-l-2 border-slate-200 pl-3 py-1 space-y-1';
+          div.innerHTML = `
+            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline">
+              <span class="text-xs font-bold text-slate-900">${exp.company || '公司名稱'} · <span class="text-blue-600 font-semibold">${exp.title || '職位'}</span></span>
+              <span class="text-[11px] text-slate-400">${exp.period || ''}</span>
+            </div>
+            <p class="text-xs text-slate-600 whitespace-pre-line leading-relaxed">${exp.details || '尚未填寫工作內容'}</p>
+          `;
+          preview.expList.appendChild(div);
+        });
+      } else {
+        preview.expList.innerHTML = '<p class="text-xs text-slate-400 italic">尚未新增工作經歷</p>';
+      }
+
+      // 學歷預覽
+      preview.eduList.innerHTML = '';
+      if (resumeData.education && resumeData.education.length > 0) {
+        resumeData.education.forEach(edu => {
+          const div = document.createElement('div');
+          div.className = 'border-l-2 border-slate-200 pl-3 py-1 space-y-0.5';
+          div.innerHTML = `
+            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline">
+              <span class="text-xs font-bold text-slate-900">${edu.school || '學校'} · <span class="text-slate-700">${edu.major || '系所'}</span> (${edu.degree || '學位'})</span>
+              <span class="text-[11px] text-slate-400">${edu.period || ''}</span>
+            </div>
+            ${edu.details ? `<p class="text-xs text-slate-500">${edu.details}</p>` : ''}
+          `;
+          preview.eduList.appendChild(div);
+        });
+      } else {
+        preview.eduList.innerHTML = '<p class="text-xs text-slate-400 italic">尚未新增學歷背景</p>';
+      }
+
+      preview.salary.textContent = resumeData.expectedSalary || '面議';
+      preview.available.textContent = resumeData.availableDate || '即時';
+      preview.worktype.textContent = resumeData.workType || '全職';
+    }
+
+    // 綁定基礎欄位監聽
+    Object.keys(inputs).forEach(key => {
+      const el = inputs[key];
+      if (el) {
+        el.addEventListener('input', () => {
+          resumeData[key] = el.value;
+          updatePreview();
+          saveToStorage();
+        });
+        el.addEventListener('change', () => {
+          resumeData[key] = el.value;
+          updatePreview();
+          saveToStorage();
+        });
+      }
+    });
+
+    // 新增學歷按鈕
+    document.getElementById('btn-add-edu').addEventListener('click', () => {
+      resumeData.education.push({
+        id: Date.now(),
+        school: '',
+        major: '',
+        degree: '',
+        period: '',
+        details: ''
+      });
+      renderEducationForms();
+      updatePreview();
+      saveToStorage();
+    });
+
+    // 新增工作經歷按鈕
+    document.getElementById('btn-add-exp').addEventListener('click', () => {
+      resumeData.experience.push({
+        id: Date.now(),
+        company: '',
+        title: '',
+        period: '',
+        details: ''
+      });
+      renderExperienceForms();
+      updatePreview();
+      saveToStorage();
+    });
+
+    // 填入範例資料按鈕
+    document.getElementById('btn-demo').addEventListener('click', () => {
+      if (confirm('確定要載入範例資料嗎？這將覆寫目前已填寫的內容。')) {
+        Object.assign(resumeData, JSON.parse(JSON.stringify(demoData)));
+        syncDataToForm();
+        updatePreview();
+        saveToStorage();
+      }
+    });
+
+    // 清空重填按鈕
+    document.getElementById('btn-clear').addEventListener('click', () => {
+      if (confirm('確定要清空所有填寫內容嗎？此操作無法撤銷。')) {
+        Object.keys(resumeData).forEach(k => {
+          if (Array.isArray(resumeData[k])) resumeData[k] = [];
+          else if (k === 'jobStatus') resumeData[k] = '積極尋找工作中';
+          else if (k === 'workType') resumeData[k] = '全職 (Full-time)';
+          else resumeData[k] = '';
+        });
+        syncDataToForm();
+        updatePreview();
+        saveToStorage();
+      }
+    });
+
+    // 匯出 JSON 按鈕
+    document.getElementById('btn-export-json').addEventListener('click', () => {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(resumeData, null, 2));
+      const dlAnchor = document.createElement('a');
+      dlAnchor.setAttribute("href", dataStr);
+      dlAnchor.setAttribute("download", `resume_${resumeData.name || 'draft'}.json`);
+      dlAnchor.click();
+    });
+
+    // 列印 / 另存 PDF 按鈕
+    document.getElementById('btn-print').addEventListener('click', () => {
+      window.print();
+    });
+
+    // 手機版切換標籤
+    const tabFormBtn = document.getElementById('tab-form-btn');
+    const tabPreviewBtn = document.getElementById('tab-preview-btn');
+    const formCol = document.getElementById('form-column');
+    const previewCol = document.getElementById('preview-column');
+
+    if (tabFormBtn && tabPreviewBtn) {
+      tabFormBtn.addEventListener('click', () => {
+        formCol.classList.remove('hidden');
+        previewCol.classList.add('hidden');
+        tabFormBtn.className = 'flex-1 py-2 text-center text-sm font-semibold text-blue-600 border-b-2 border-blue-600';
+        tabPreviewBtn.className = 'flex-1 py-2 text-center text-sm font-medium text-slate-500 hover:text-slate-800 border-b-0';
+      });
+
+      tabPreviewBtn.addEventListener('click', () => {
+        formCol.classList.add('hidden');
+        previewCol.classList.remove('hidden');
+        tabPreviewBtn.className = 'flex-1 py-2 text-center text-sm font-semibold text-blue-600 border-b-2 border-blue-600';
+        tabFormBtn.className = 'flex-1 py-2 text-center text-sm font-medium text-slate-500 hover:text-slate-800 border-b-0';
+      });
+    }
+
+    // 頁面載入啟動
+    window.addEventListener('DOMContentLoaded', () => {
+      const hasStored = loadFromStorage();
+      if (!hasStored) {
+        // 預設載入範例方便使用者立刻看到成效
+        Object.assign(resumeData, JSON.parse(JSON.stringify(demoData)));
+        syncDataToForm();
+        updatePreview();
+      }
+    });
+  </script>
+</body>
+</html>

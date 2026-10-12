@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>個人線上履歷 | 門市營運主管・進銷存管理專家</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+    }
+    
+    /* 列印與另存 PDF 專用乾淨樣式 */
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+      body {
+        background-color: white !important;
+        color: black !important;
+        font-size: 12pt;
+      }
+      .resume-container {
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+        border: none !important;
+      }
+      .page-break {
+        page-break-after: always;
+      }
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased min-h-screen py-6 sm:py-12">
+
+  <!-- 頂部浮動操作列 (No Print) -->
+  <div class="no-print max-w-4xl mx-auto px-4 mb-6 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+      <span class="text-xs sm:text-sm font-semibold text-slate-600">個人線上履歷網站 (正式求職版)</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <a href="portfolio.html" class="px-3 py-1.5 text-xs font-medium text-slate-600 bg-white hover:bg-slate-50 border border-slate-300 rounded-lg shadow-sm transition-colors">
+        切換為簡介形象頁
+      </a>
+      <button onclick="window.print()" class="px-4 py-1.5 text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md transition-colors flex items-center gap-1.5">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+        </svg>
+        列印 / 另存為 PDF
+      </button>
+    </div>
+  </div>
+
+  <!-- 主履歷紙本容器 (A4 寬度與精緻卡片感) -->
+  <main class="resume-container max-w-4xl mx-auto bg-white border border-slate-200/80 shadow-xl rounded-2xl p-6 sm:p-12 space-y-8">
+
+    <!-- 1. 履歷頭部個人資訊 -->
+    <header class="border-b border-slate-200 pb-8">
+      <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-6">
+        
+        <div class="space-y-2">
+          <div class="flex items-center gap-3">
+            <h1 class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">求職者姓名</h1>
+            <span class="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+              積極尋職中・近期可到職
+            </span>
+          </div>
+          <p class="text-lg font-bold text-blue-600">
+            連鎖門市店長 / 營運督導 / 倉儲進銷存主管
+          </p>
+          <p class="text-xs sm:text-sm text-slate-500 max-w-xl leading-relaxed">
+            2 年連鎖餐飲副店長實務經歷 ✕ 月薪 70K 高績效肯定 ✕ 原物料進銷存精算 ✕ 汽修科實作與排錯背景
+          </p>
+        </div>
+
+        <!-- 聯絡欄位 -->
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs space-y-2 text-slate-600 shrink-0">
+          <div class="flex items-center gap-2">
+            <span class="text-slate-400 font-bold">📞 電話：</span>
+            <span class="font-medium text-slate-900">0912-345-678</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-slate-400 font-bold">✉️ 信箱：</span>
+            <span class="font-medium text-slate-900">your.email@example.com</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-slate-400 font-bold">📍 地點：</span>
+            <span class="font-medium text-slate-900">台灣（可配合區域調派）</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-slate-400 font-bold">💰 待遇：</span>
+            <span class="font-medium text-slate-900">月薪 70,000 ~ 75,000 元 (面議)</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 四大核心數字徽章 -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-6 border-t border-slate-100">
+        <div class="p-3 bg-blue-50/50 rounded-xl border border-blue-100 text-center">
+          <div class="text-xl font-black text-blue-700">2 年</div>
+          <div class="text-[11px] font-medium text-slate-600">連鎖餐飲副店長</div>
+        </div>
+        <div class="p-3 bg-emerald-50/50 rounded-xl border border-emerald-100 text-center">
+          <div class="text-xl font-black text-emerald-700">70K</div>
+          <div class="text-[11px] font-medium text-slate-600">月薪績效肯定</div>
+        </div>
+        <div class="p-3 bg-purple-50/50 rounded-xl border border-purple-100 text-center">
+          <div class="text-xl font-black text-purple-700">FIFO</div>
+          <div class="text-[11px] font-medium text-slate-600">低耗損庫存管理</div>
+        </div>
+        <div class="p-3 bg-amber-50/50 rounded-xl border border-amber-100 text-center">
+          <div class="text-xl font-black text-amber-700">SOP</div>
+          <div class="text-[11px] font-medium text-slate-600">新人標準化培訓</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- 2. 個人簡介與自傳定位 (Professional Summary) -->
+    <section class="space-y-2">
+      <div class="flex items-center gap-2 border-b border-slate-100 pb-2">
+        <span class="w-2.5 h-2.5 bg-blue-600 rounded-sm"></span>
+        <h2 class="text-sm font-bold uppercase tracking-wider text-slate-900">個人簡介與專業定位 (Professional Summary)</h2>
+      </div>
+      <p class="text-xs sm:text-sm text-slate-700 leading-relaxed text-justify">
+        具備 <b>2 年知名手搖茶飲連鎖門市副店長</b>管理實務經驗，全權統籌門市日常營運、全方位進銷存管理與新進同仁教育考核。專精原物料進貨驗收、安全水位掌控與效期先進先出 (FIFO)，能精準預估需求並壓制損耗成本；同時負責人員排班與出杯動線調度，具備極佳抗壓性與客訴危機應變力。高職畢業於<b>汽車修護科</b>，具備手工具實作、機電結構理解與邏輯排錯基礎，能自主排除門市設備突發卡料故障。在職期間憑藉務實之現場管理與優秀營運實績，<b>獲老闆拔擢並達月薪 70,000 元高標準肯定</b>。
+      </p>
+    </section>
+
+    <!-- 3. 工作經歷 (Work Experience) -->
+    <section class="space-y-4">
+      <div class="flex items-center gap-2 border-b border-slate-100 pb-2">
+        <span class="w-2.5 h-2.5 bg-blue-600 rounded-sm"></span>
+        <h2 class="text-sm font-bold uppercase tracking-wider text-slate-900">工作經歷 (Work Experience)</h2>
+      </div>
+
+      <div class="space-y-4">
+        <div class="p-4 sm:p-5 bg-slate-50/80 border border-slate-200 rounded-xl space-y-3">
+          
+          <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+            <div>
+              <span class="text-base font-bold text-slate-900">連鎖手搖飲門市</span>
+              <span class="text-sm font-semibold text-blue-600 ml-2">副店長 (Assistant Store Manager)</span>
+            </div>
+            <span class="text-xs font-semibold text-slate-500 bg-white px-2 py-1 rounded border border-slate-200">
+              全職｜任職 2 年（月薪 70,000 元）
+            </span>
+          </div>
+
+          <div class="space-y-2.5 text-xs sm:text-sm text-slate-700 leading-relaxed">
+            <div class="flex items-start gap-2">
+              <span class="font-bold text-blue-600 shrink-0">1. 進銷存與倉儲全流程精算：</span>
+              <span>主導全店原物料（茶葉、包材、生鮮乳品、糖漿等）進出貨驗收與每週定期盤點；建立安全庫存水位監控機制，落實先進先出 (FIFO)，有效降低原料過期與報廢損耗率約 15%。</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="font-bold text-blue-600 shrink-0">2. 員工培訓與 SOP 制度化：</span>
+              <span>統籌兼職與正職人員之職前與在職教育訓練（調飲配方標準、出杯速度、收銀禮儀與食品衛生規範），制定明確考核標準，大幅縮短新人獨立上手時間並提升服務滿意度。</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="font-bold text-blue-600 shrink-0">3. 門市營運調度與動線優化：</span>
+              <span>負責門市日常排班規劃，依據尖峰時段與天氣彈性調配備料與站吧人力；冷靜排解現場各類客訴與大量外送訂單衝擊，維持高出單周轉率。</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="font-bold text-blue-600 shrink-0">4. 設備第一線維護與故障排除：</span>
+              <span>結合汽修科背景，負責封口機、果糖機、製冰機等門市設備之基礎保養、刀具清理與簡易故障排查，大幅降低設備停機時間與原廠報修成本。</span>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-1.5 pt-1">
+            <span class="text-[11px] font-medium bg-white text-slate-600 px-2 py-0.5 rounded border border-slate-200">進銷存管理</span>
+            <span class="text-[11px] font-medium bg-white text-slate-600 px-2 py-0.5 rounded border border-slate-200">庫存盤點</span>
+            <span class="text-[11px] font-medium bg-white text-slate-600 px-2 py-0.5 rounded border border-slate-200">員工培訓 (OJT)</span>
+            <span class="text-[11px] font-medium bg-white text-slate-600 px-2 py-0.5 rounded border border-slate-200">排班與人力調度</span>
+            <span class="text-[11px] font-medium bg-white text-slate-600 px-2 py-0.5 rounded border border-slate-200">設備基礎檢修</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 專業技能與專長 (Skills & Core Strengths) -->
+    <section class="space-y-3">
+      <div class="flex items-center gap-2 border-b border-slate-100 pb-2">
+        <span class="w-2.5 h-2.5 bg-blue-600 rounded-sm"></span>
+        <h2 class="text-sm font-bold uppercase tracking-wider text-slate-900">核心專業技能 (Core Competencies)</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1.5">
+          <div class="font-bold text-slate-900 text-sm">📦 庫存與物料管理</div>
+          <p class="text-slate-600 leading-relaxed">進銷存管理、採購進貨驗收、安全庫存設定、耗損率控管、效期 FIFO 管理。</p>
+        </div>
+        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1.5">
+          <div class="font-bold text-slate-900 text-sm">👥 團隊領導與培訓</div>
+          <p class="text-slate-600 leading-relaxed">新人調飲 SOP 訓練、工作站輪調考核、排班考勤調度、團隊向心力激勵。</p>
+        </div>
+        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1.5">
+          <div class="font-bold text-slate-900 text-sm">🔧 現場營運與機具排錯</div>
+          <p class="text-slate-600 leading-relaxed">尖峰出單動線優化、客訴衝突處理、封口機/製冰機保養、機械邏輯排錯。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. 學歷背景 (Education) -->
+    <section class="space-y-3">
+      <div class="flex items-center gap-2 border-b border-slate-100 pb-2">
+        <span class="w-2.5 h-2.5 bg-blue-600 rounded-sm"></span>
+        <h2 class="text-sm font-bold uppercase tracking-wider text-slate-900">學歷背景 (Education)</h2>
+      </div>
+
+      <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 text-xs sm:text-sm">
+        <div>
+          <span class="font-bold text-slate-900 text-base">高級職業學校</span>
+          <span class="text-slate-700 ml-2 font-medium">汽車修護科</span>
+          <span class="text-slate-500 ml-1">(高職畢業)</span>
+        </div>
+        <div class="text-xs text-slate-500">
+          修習手工具操作、機械檢測原理與系統性問題排除，養成實事求是之實作性格。
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. 求職條件與結語 -->
+    <footer class="pt-6 border-t border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs text-slate-500">
+      <div class="space-y-1">
+        <div><b>期望職稱：</b>連鎖餐飲門市店長 / 營運督導 / 倉儲物流幹部</div>
+        <div><b>工作型態：</b>全職 (可配合輪班與排休)</div>
+      </div>
+      <div class="no-print">
+        <button onclick="window.print()" class="px-4 py-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow transition-colors">
+          🖨️ 列印此履歷 / 另存為 PDF
+        </button>
+      </div>
+    </footer>
+
+  </main>
+
+  <footer class="no-print text-center text-xs text-slate-400 mt-8 mb-4">
+    個人線上履歷網站 &copy; 2026. 支援直接列印、匯出標準 A4 PDF.
+  </footer>
+
+</body>
+</html>
