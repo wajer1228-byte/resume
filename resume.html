@@ -5,16 +5,134 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>陳韋志 | 門市營運經理 ✕ 進銷存管理專家 - 個人專業履歷網站</title>
   <meta name="description" content="陳韋志的個人專業履歷網站。就讀萬能科技大學企業管理系（在學中），具備2年連鎖手搖飲副店長管理經歷、月薪70K高績效肯定、專精進銷存(FIFO)控管與門市帶隊。">
-  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  
+  <!-- 官方標準 Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  
   <style>
-    body {
+    /* 基礎重置與全域樣式 */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100vh;
       font-family: 'Plus Jakarta Sans', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background: linear-gradient(165deg, #FBF8F3 0%, #F5ECE1 45%, #FAF5EE 100%);
       background-attachment: fixed;
+      color: #292524;
+      line-height: 1.6;
     }
+
+    /* 容器保證全寬置中，絕不塌陷 */
+    .site-container {
+      width: 100%;
+      max-width: 1140px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+    }
+
+    /* 核心網格佈局 (純原生 CSS，不依賴任何外部庫) */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      align-items: center;
+      width: 100%;
+    }
+    @media (min-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 7fr 5fr;
+      }
+    }
+
+    .stat-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      width: 100%;
+      margin-top: 3rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid #E6DACB;
+    }
+    @media (min-width: 768px) {
+      .stat-cards-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    .about-cards-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      width: 100%;
+    }
+    @media (min-width: 768px) {
+      .about-cards-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .competencies-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      width: 100%;
+    }
+    @media (min-width: 768px) {
+      .competencies-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .photo-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+      width: 100%;
+    }
+    @media (min-width: 640px) {
+      .photo-gallery-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    .skills-education-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      width: 100%;
+    }
+    @media (min-width: 1024px) {
+      .skills-education-grid {
+        grid-template-columns: 7fr 5fr;
+      }
+    }
+
+    .contact-cards-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      width: 100%;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    @media (min-width: 640px) {
+      .contact-cards-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* 漸層與視覺效果 */
     .gradient-cream-bg {
       background: linear-gradient(180deg, rgba(251, 248, 243, 0.95) 0%, rgba(245, 236, 225, 0.9) 100%);
     }
@@ -27,14 +145,16 @@
       -webkit-text-fill-color: transparent;
     }
     .glass-nav {
-      background: rgba(251, 248, 243, 0.88);
+      background: rgba(251, 248, 243, 0.92);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
     }
     .warm-card {
       background-color: #FFFFFF;
-      border: 1px solid rgba(226, 214, 197, 0.7);
+      border: 1px solid rgba(226, 214, 197, 0.75);
+      border-radius: 1rem;
       box-shadow: 0 4px 20px -2px rgba(130, 100, 70, 0.05);
+      overflow: hidden;
     }
     .card-hover {
       transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
@@ -44,17 +164,18 @@
       box-shadow: 0 16px 30px -4px rgba(130, 100, 70, 0.12);
       border-color: rgba(190, 160, 130, 0.9);
     }
+
     @media print {
       .no-print { display: none !important; }
       body { background: white !important; color: black !important; }
     }
   </style>
 </head>
-<body class="text-stone-800 antialiased selection:bg-amber-700 selection:text-white min-h-screen flex flex-col justify-between">
+<body class="min-h-screen flex flex-col justify-between">
 
   <!-- 1. 頂部黏性導覽列 (Sticky Navbar) -->
   <header class="sticky top-0 z-50 glass-nav border-b border-[#E6DACB]/80 transition-all duration-300">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
+    <div class="site-container h-16 sm:h-20 flex items-center justify-between">
       
       <!-- Logo / 姓名 -->
       <a href="#hero" class="flex items-center gap-3 group">
@@ -124,12 +245,13 @@
 
   <!-- 2. 主視覺 Hero Section (溫潤漸層米白底) -->
   <section id="hero" class="relative pt-12 pb-16 sm:pt-20 sm:pb-24 overflow-hidden border-b border-[#E6DACB]/80">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="site-container">
       
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      <!-- 主視覺左右雙欄 (hero-grid) -->
+      <div class="hero-grid">
         
         <!-- 左側核心文案 -->
-        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+        <div class="space-y-6 text-center lg:text-left">
           
           <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EFE3D3] border border-[#DFCBB5] text-stone-800 text-xs sm:text-sm font-bold shadow-sm">
             <span class="w-2 h-2 rounded-full bg-blue-700"></span>
@@ -188,14 +310,14 @@
 
         </div>
 
-        <!-- 右側專業名片與亮點看板 (Warm Card) -->
-        <div class="lg:col-span-5">
-          <div class="warm-card rounded-3xl card-hover overflow-hidden relative">
+        <!-- 右側專業名片與亮點看板 (Executive Profile) -->
+        <div>
+          <div class="warm-card card-hover">
             
             <!-- 實務經歷封面照片 -->
-            <div class="relative h-28 sm:h-32 w-full overflow-hidden">
+            <div class="relative h-32 sm:h-36 w-full overflow-hidden">
               <img src="assets/images/tea-drink.jpg" alt="手搖茶飲門市" class="w-full h-full object-cover">
-              <div class="absolute inset-0 bg-gradient-to-t from-stone-900/75 via-stone-900/30 to-transparent"></div>
+              <div class="absolute inset-0 bg-gradient-to-t from-stone-900/80 via-stone-900/30 to-transparent"></div>
               <span class="absolute bottom-2.5 left-4 text-xs font-bold text-white flex items-center gap-1.5 drop-shadow">
                 <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                 連鎖茶飲門市營運 ✕ 實務管理
@@ -214,65 +336,66 @@
                 </div>
               </div>
 
-            <!-- 期望條件與職務關鍵字 -->
-            <div class="space-y-3 text-xs">
-              <div class="flex items-center justify-between p-3 rounded-xl bg-[#FAF6F0] border border-[#EFE5D6]">
-                <span class="text-stone-500 font-medium">🎯 期望目標職位</span>
-                <span class="font-bold text-stone-900">門市店長 / 營運督導 / 倉儲主管</span>
-              </div>
-              <div class="flex items-center justify-between p-3 rounded-xl bg-[#FAF6F0] border border-[#EFE5D6]">
-                <span class="text-stone-500 font-medium">💰 期望薪資待遇</span>
-                <span class="font-black text-emerald-700 text-sm">月薪 70,000 ~ 75,000 元</span>
-              </div>
-              <div class="flex items-center justify-between p-3 rounded-xl bg-[#FAF6F0] border border-[#EFE5D6]">
-                <span class="text-stone-500 font-medium">⚡ 最快可到職日</span>
-                <span class="font-bold text-blue-700">積極面談・錄取後可立即到職</span>
-              </div>
-            </div>
-
-            <!-- 一鍵複製 LINE 區塊 -->
-            <div class="p-4 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-teal-500/5 border border-emerald-400/30 flex items-center justify-between">
-              <div class="flex items-center gap-2.5">
-                <div class="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-sm shadow">
-                  LINE
+              <!-- 期望條件與職務關鍵字 -->
+              <div class="space-y-3 text-xs">
+                <div class="flex items-center justify-between p-3 rounded-xl bg-[#FAF6F0] border border-[#EFE5D6]">
+                  <span class="text-stone-500 font-medium">🎯 期望目標職位</span>
+                  <span class="font-bold text-stone-900">門市店長 / 營運督導 / 倉儲主管</span>
                 </div>
-                <div>
-                  <div class="text-[11px] text-stone-500 font-medium">LINE ID (點擊一鍵複製)</div>
-                  <div class="text-sm font-black text-stone-900 font-mono tracking-wider">wajer1228</div>
+                <div class="flex items-center justify-between p-3 rounded-xl bg-[#FAF6F0] border border-[#EFE5D6]">
+                  <span class="text-stone-500 font-medium">💰 期望薪資待遇</span>
+                  <span class="font-black text-emerald-700 text-sm">月薪 70,000 ~ 75,000 元</span>
+                </div>
+                <div class="flex items-center justify-between p-3 rounded-xl bg-[#FAF6F0] border border-[#EFE5D6]">
+                  <span class="text-stone-500 font-medium">⚡ 最快可到職日</span>
+                  <span class="font-bold text-blue-700">積極面談・錄取後可立即到職</span>
                 </div>
               </div>
-              <button onclick="copyLineId()" class="px-3.5 py-1.5 text-xs font-bold text-emerald-800 bg-[#FFFDF9] hover:bg-emerald-50 border border-emerald-300 rounded-lg shadow-sm transition-all active:scale-95">
-                複製 ID
-              </button>
-            </div>
 
+              <!-- 一鍵複製 LINE 區塊 -->
+              <div class="p-4 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-teal-500/5 border border-emerald-400/30 flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-sm shadow">
+                    LINE
+                  </div>
+                  <div>
+                    <div class="text-[11px] text-stone-500 font-medium">LINE ID (點擊一鍵複製)</div>
+                    <div class="text-sm font-black text-stone-900 font-mono tracking-wider">wajer1228</div>
+                  </div>
+                </div>
+                <button onclick="copyLineId()" class="px-3.5 py-1.5 text-xs font-bold text-emerald-800 bg-[#FFFDF9] hover:bg-emerald-50 border border-emerald-300 rounded-lg shadow-sm transition-all active:scale-95">
+                  複製 ID
+                </button>
+              </div>
+
+            </div>
           </div>
         </div>
 
-      </div>
+      </div> <!-- 關閉 hero-grid -->
 
-      <!-- 四大核心營運數字看板 -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 pt-10 border-t border-[#E6DACB]">
+      <!-- 四大核心營運數字看板 (獨立全寬 stat-cards-grid) -->
+      <div class="stat-cards-grid">
         
-        <div class="warm-card p-5 rounded-2xl card-hover text-center">
+        <div class="warm-card p-5 card-hover text-center">
           <div class="text-3xl font-black text-blue-700 tracking-tight">2+ <span class="text-sm font-semibold text-stone-400">年</span></div>
           <div class="text-xs font-bold text-stone-800 mt-1">連鎖手搖飲副店長</div>
           <div class="text-[11px] text-stone-500 mt-0.5">全權統籌門市日常運營</div>
         </div>
 
-        <div class="warm-card p-5 rounded-2xl card-hover text-center">
+        <div class="warm-card p-5 card-hover text-center">
           <div class="text-3xl font-black text-emerald-700 tracking-tight">70K <span class="text-sm font-semibold text-stone-400">月薪</span></div>
           <div class="text-xs font-bold text-stone-800 mt-1">高營運管理績效考核</div>
           <div class="text-[11px] text-stone-500 mt-0.5">老闆實質高薪肯定</div>
         </div>
 
-        <div class="warm-card p-5 rounded-2xl card-hover text-center">
+        <div class="warm-card p-5 card-hover text-center">
           <div class="text-3xl font-black text-indigo-700 tracking-tight">-15% <span class="text-sm font-semibold text-stone-400">耗損</span></div>
           <div class="text-xs font-bold text-stone-800 mt-1">FIFO 精準庫存管理</div>
           <div class="text-[11px] text-stone-500 mt-0.5">原物料安全水位監控</div>
         </div>
 
-        <div class="warm-card p-5 rounded-2xl card-hover text-center">
+        <div class="warm-card p-5 card-hover text-center">
           <div class="text-3xl font-black text-amber-700 tracking-tight">企管 <span class="text-sm font-semibold text-stone-400">在學</span></div>
           <div class="text-xs font-bold text-stone-800 mt-1">萬能科技大學企管系</div>
           <div class="text-[11px] text-stone-500 mt-0.5">專業理論結合現場實務</div>
@@ -285,7 +408,7 @@
 
   <!-- 3. 關於韋志與職涯價值觀 (About Section) -->
   <section id="about" class="py-16 sm:py-20 gradient-cream-bg">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="site-container">
       
       <div class="text-center max-w-3xl mx-auto space-y-3 mb-12">
         <span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-[#EFE3D3] px-3 py-1 rounded-full border border-[#DFCBB5]">About Me</span>
@@ -297,9 +420,9 @@
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="about-cards-grid">
         
-        <div class="warm-card p-6 rounded-2xl card-hover space-y-3">
+        <div class="warm-card p-6 card-hover space-y-3">
           <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center text-xl font-bold">
             📦
           </div>
@@ -309,7 +432,7 @@
           </p>
         </div>
 
-        <div class="warm-card p-6 rounded-2xl card-hover space-y-3">
+        <div class="warm-card p-6 card-hover space-y-3">
           <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-xl font-bold">
             👥
           </div>
@@ -319,7 +442,7 @@
           </p>
         </div>
 
-        <div class="warm-card p-6 rounded-2xl card-hover space-y-3">
+        <div class="warm-card p-6 card-hover space-y-3">
           <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center text-xl font-bold">
             📊
           </div>
@@ -336,7 +459,7 @@
 
   <!-- 4. 核心專業優勢 (Competencies) -->
   <section id="competencies" class="py-16 sm:py-20 border-y border-[#E6DACB]">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="site-container">
       
       <div class="text-center max-w-3xl mx-auto space-y-3 mb-12">
         <span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-[#EFE3D3] px-3 py-1 rounded-full border border-[#DFCBB5]">Core Competencies</span>
@@ -348,10 +471,10 @@
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="competencies-grid">
         
         <!-- 能力 1 -->
-        <div class="warm-card rounded-2xl card-hover overflow-hidden flex flex-col">
+        <div class="warm-card card-hover overflow-hidden flex flex-col">
           <div class="relative h-44 sm:h-48 overflow-hidden group">
             <img src="assets/images/store-bar.jpg" alt="門市營運現場與吧台出杯動線" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <div class="absolute inset-0 bg-gradient-to-t from-stone-900/60 via-transparent to-transparent"></div>
@@ -376,7 +499,7 @@
         </div>
 
         <!-- 能力 2 -->
-        <div class="warm-card rounded-2xl card-hover overflow-hidden flex flex-col">
+        <div class="warm-card card-hover overflow-hidden flex flex-col">
           <div class="relative h-44 sm:h-48 overflow-hidden group">
             <img src="assets/images/inventory-storage.jpg" alt="原物料進銷存與倉儲管理" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <div class="absolute inset-0 bg-gradient-to-t from-stone-900/60 via-transparent to-transparent"></div>
@@ -401,7 +524,7 @@
         </div>
 
         <!-- 能力 3 -->
-        <div class="warm-card rounded-2xl card-hover overflow-hidden flex flex-col">
+        <div class="warm-card card-hover overflow-hidden flex flex-col">
           <div class="relative h-44 sm:h-48 overflow-hidden group">
             <img src="assets/images/team-training.jpg" alt="團隊教育培訓與排班調配" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <div class="absolute inset-0 bg-gradient-to-t from-stone-900/60 via-transparent to-transparent"></div>
@@ -426,7 +549,7 @@
         </div>
 
         <!-- 能力 4 -->
-        <div class="warm-card rounded-2xl card-hover overflow-hidden flex flex-col">
+        <div class="warm-card card-hover overflow-hidden flex flex-col">
           <div class="relative h-44 sm:h-48 overflow-hidden group">
             <img src="assets/images/pos-analytics.jpg" alt="門市營運分析與成本精算" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <div class="absolute inset-0 bg-gradient-to-t from-stone-900/60 via-transparent to-transparent"></div>
@@ -457,9 +580,9 @@
 
   <!-- 5. 工作經歷與實績 (Experience Timeline) -->
   <section id="experience" class="py-16 sm:py-20 gradient-cream-bg">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+    <div class="site-container">
       
-      <div class="text-center space-y-3 mb-12">
+      <div class="text-center space-y-3 mb-12 max-w-2xl mx-auto">
         <span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-[#EFE3D3] px-3 py-1 rounded-full border border-[#DFCBB5]">Work Experience</span>
         <h2 class="text-2xl sm:text-4xl font-black text-stone-900 tracking-tight">
           實戰工作經歷
@@ -470,12 +593,12 @@
       </div>
 
       <!-- 時間軸卡片 -->
-      <div class="relative pl-6 sm:pl-8 border-l-2 border-blue-600 space-y-8">
+      <div class="max-w-4xl mx-auto relative pl-6 sm:pl-8 border-l-2 border-blue-600 space-y-8">
         
         <!-- 時間節點圓點 -->
         <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-blue-600 ring-4 ring-[#EFE3D3]"></div>
 
-        <div class="warm-card rounded-2xl p-6 sm:p-8 card-hover space-y-5">
+        <div class="warm-card p-6 sm:p-8 card-hover space-y-5">
           
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#F0E6D8] pb-4">
             <div>
@@ -541,7 +664,7 @@
               <span class="text-[11px] text-stone-500 font-medium">吧台調飲 ✕ 進銷存 ✕ 團隊SOP ✕ 營運數據</span>
             </div>
             
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="photo-gallery-grid">
               <!-- 圖 1 -->
               <div class="group rounded-xl overflow-hidden warm-card border border-[#E6DACB]">
                 <div class="h-28 sm:h-32 overflow-hidden">
@@ -608,12 +731,12 @@
 
   <!-- 6. 專業技能與學歷背景 (Skills & Education) -->
   <section id="skills" class="py-16 sm:py-20 border-t border-[#E6DACB]">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="site-container">
       
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div class="skills-education-grid">
         
         <!-- 左側：專業技能矩陣 -->
-        <div class="lg:col-span-7 space-y-6">
+        <div class="space-y-6">
           <div class="space-y-2">
             <span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-[#EFE3D3] px-3 py-1 rounded-full border border-[#DFCBB5]">Skills Matrix</span>
             <h2 class="text-2xl sm:text-3xl font-black text-stone-900 tracking-tight">專業技能矩陣</h2>
@@ -621,7 +744,7 @@
 
           <div class="space-y-4">
             
-            <div class="warm-card p-5 rounded-2xl space-y-2">
+            <div class="warm-card p-5 space-y-2">
               <div class="flex justify-between items-center text-xs font-bold text-stone-800">
                 <span>進銷存與庫存效期管理 (FIFO / 盤點 / 水位控管)</span>
                 <span class="text-blue-700 font-extrabold">95%</span>
@@ -631,7 +754,7 @@
               </div>
             </div>
 
-            <div class="warm-card p-5 rounded-2xl space-y-2">
+            <div class="warm-card p-5 space-y-2">
               <div class="flex justify-between items-center text-xs font-bold text-stone-800">
                 <span>門市日常營運與現場危機應變 (排班 / 金流 / 客訴)</span>
                 <span class="text-blue-700 font-extrabold">92%</span>
@@ -641,7 +764,7 @@
               </div>
             </div>
 
-            <div class="warm-card p-5 rounded-2xl space-y-2">
+            <div class="warm-card p-5 space-y-2">
               <div class="flex justify-between items-center text-xs font-bold text-stone-800">
                 <span>團隊新進人員培訓與 SOP 制度考核 (OJT)</span>
                 <span class="text-blue-700 font-extrabold">90%</span>
@@ -651,7 +774,7 @@
               </div>
             </div>
 
-            <div class="warm-card p-5 rounded-2xl space-y-2">
+            <div class="warm-card p-5 space-y-2">
               <div class="flex justify-between items-center text-xs font-bold text-stone-800">
                 <span>企管經營思維與損益成本分析 (Cost & Margin Control)</span>
                 <span class="text-blue-700 font-extrabold">92%</span>
@@ -665,13 +788,13 @@
         </div>
 
         <!-- 右側：學歷背景與企管專業優勢 -->
-        <div id="education" class="lg:col-span-5 space-y-6">
+        <div id="education" class="space-y-6">
           <div class="space-y-2">
             <span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-[#EFE3D3] px-3 py-1 rounded-full border border-[#DFCBB5]">Education</span>
             <h2 class="text-2xl sm:text-3xl font-black text-stone-900 tracking-tight">學歷背景</h2>
           </div>
 
-          <div class="warm-card p-6 rounded-2xl space-y-5">
+          <div class="warm-card p-6 space-y-5">
             
             <div class="flex items-start gap-3.5">
               <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-800 flex items-center justify-center text-2xl font-bold shrink-0">
@@ -706,7 +829,7 @@
 
   <!-- 7. 聯絡與合作洽談 (Get in Touch - Full Modern CTA) -->
   <section id="contact" class="py-16 sm:py-24 border-t border-[#E6DACB] gradient-cream-bg">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-8">
+    <div class="site-container text-center space-y-8">
       
       <div class="space-y-3">
         <span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-[#EFE3D3] px-3 py-1 rounded-full border border-[#DFCBB5]">Contact Me</span>
@@ -719,10 +842,10 @@
       </div>
 
       <!-- 聯絡卡片網格 -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto text-left">
+      <div class="contact-cards-grid text-left">
         
         <!-- LINE 聯絡卡片 -->
-        <div class="warm-card p-5 rounded-2xl card-hover flex items-center justify-between border-emerald-300/60 bg-[#FAFBF9]">
+        <div class="warm-card p-5 card-hover flex items-center justify-between border-emerald-300/60 bg-[#FAFBF9]">
           <div class="flex items-center gap-3">
             <div class="w-12 h-12 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-emerald-700/20">
               LINE
@@ -738,7 +861,7 @@
         </div>
 
         <!-- Email 聯絡卡片 -->
-        <a href="mailto:wajer1228@gmail.com" class="warm-card p-5 rounded-2xl card-hover flex items-center justify-between group border-blue-300/60 bg-[#FAF9FD]">
+        <a href="mailto:wajer1228@gmail.com" class="warm-card p-5 card-hover flex items-center justify-between group border-blue-300/60 bg-[#FAF9FD]">
           <div class="flex items-center gap-3">
             <div class="w-12 h-12 rounded-xl bg-blue-700 text-white flex items-center justify-center text-xl shadow-md shadow-blue-800/20">
               ✉️
@@ -773,7 +896,7 @@
 
   <!-- 8. 現代化頁尾 (Footer) -->
   <footer class="bg-stone-900 text-stone-400 py-10 border-t border-stone-800 text-xs">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="site-container flex flex-col sm:flex-row items-center justify-between gap-4">
       <div class="flex items-center gap-2">
         <div class="w-6 h-6 rounded-lg gradient-brand flex items-center justify-center text-white font-black text-xs">
           韋
