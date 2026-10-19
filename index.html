@@ -1,246 +1,845 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-TW" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>個人線上履歷 | 門市營運主管・進銷存管理專家</title>
+  <title>陳韋志 | 門市營運經理 ✕ 進銷存管理專家 - 個人專業履歷網站</title>
+  <meta name="description" content="陳韋志的個人專業履歷網站。就讀萬能科技大學企業管理系（在學中），具備2年連鎖手搖飲副店長管理經歷、月薪70K高績效肯定、專精進銷存(FIFO)控管與門市帶隊。">
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+      font-family: 'Plus Jakarta Sans', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(165deg, #FBF8F3 0%, #F5ECE1 45%, #FAF5EE 100%);
+      background-attachment: fixed;
     }
-    
-    /* 列印與另存 PDF 專用乾淨樣式 */
+    .gradient-cream-bg {
+      background: linear-gradient(180deg, rgba(251, 248, 243, 0.95) 0%, rgba(245, 236, 225, 0.9) 100%);
+    }
+    .gradient-brand {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #0284c7 100%);
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #1d4ed8 0%, #0284c7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .glass-nav {
+      background: rgba(251, 248, 243, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .warm-card {
+      background-color: #FFFFFF;
+      border: 1px solid rgba(226, 214, 197, 0.7);
+      box-shadow: 0 4px 20px -2px rgba(130, 100, 70, 0.05);
+    }
+    .card-hover {
+      transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 30px -4px rgba(130, 100, 70, 0.12);
+      border-color: rgba(190, 160, 130, 0.9);
+    }
     @media print {
-      .no-print {
-        display: none !important;
-      }
-      body {
-        background-color: white !important;
-        color: black !important;
-        font-size: 12pt;
-      }
-      .resume-container {
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        box-shadow: none !important;
-        border: none !important;
-      }
-      .page-break {
-        page-break-after: always;
-      }
+      .no-print { display: none !important; }
+      body { background: white !important; color: black !important; }
     }
   </style>
 </head>
-<body class="bg-slate-100 text-slate-800 antialiased min-h-screen py-6 sm:py-12">
+<body class="text-stone-800 antialiased selection:bg-amber-700 selection:text-white min-h-screen flex flex-col justify-between">
 
-  <!-- 頂部浮動操作列 (No Print) -->
-  <div class="no-print max-w-4xl mx-auto px-4 mb-6 flex items-center justify-between">
-    <div class="flex items-center gap-2">
-      <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-      <span class="text-xs sm:text-sm font-semibold text-slate-600">個人線上履歷網站 (正式求職版)</span>
-    </div>
-    <div class="flex items-center gap-2">
-      <a href="portfolio.html" class="px-3 py-1.5 text-xs font-medium text-slate-600 bg-white hover:bg-slate-50 border border-slate-300 rounded-lg shadow-sm transition-colors">
-        切換為簡介形象頁
-      </a>
-      <button onclick="window.print()" class="px-4 py-1.5 text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md transition-colors flex items-center gap-1.5">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
-        </svg>
-        列印 / 另存為 PDF
-      </button>
-    </div>
-  </div>
-
-  <!-- 主履歷紙本容器 (A4 寬度與精緻卡片感) -->
-  <main class="resume-container max-w-4xl mx-auto bg-white border border-slate-200/80 shadow-xl rounded-2xl p-6 sm:p-12 space-y-8">
-
-    <!-- 1. 履歷頭部個人資訊 -->
-    <header class="border-b border-slate-200 pb-8">
-      <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-6">
-        
-        <div class="space-y-2">
-          <div class="flex items-center gap-3">
-            <h1 class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">求職者姓名</h1>
-            <span class="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
-              積極尋職中・近期可到職
-            </span>
-          </div>
-          <p class="text-lg font-bold text-blue-600">
-            連鎖門市店長 / 營運督導 / 倉儲進銷存主管
-          </p>
-          <p class="text-xs sm:text-sm text-slate-500 max-w-xl leading-relaxed">
-            2 年連鎖餐飲副店長實務經歷 ✕ 月薪 70K 高績效肯定 ✕ 原物料進銷存精算 ✕ 汽修科實作與排錯背景
-          </p>
+  <!-- 1. 頂部黏性導覽列 (Sticky Navbar) -->
+  <header class="sticky top-0 z-50 glass-nav border-b border-[#E6DACB]/80 transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
+      
+      <!-- Logo / 姓名 -->
+      <a href="#hero" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl gradient-brand flex items-center justify-center text-white font-black text-base shadow-md shadow-blue-900/20 group-hover:scale-105 transition-transform">
+          韋志
         </div>
-
-        <!-- 聯絡欄位 -->
-        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs space-y-2 text-slate-600 shrink-0">
-          <div class="flex items-center gap-2">
-            <span class="text-slate-400 font-bold">📞 電話：</span>
-            <span class="font-medium text-slate-900">0912-345-678</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="text-slate-400 font-bold">✉️ 信箱：</span>
-            <span class="font-medium text-slate-900">your.email@example.com</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="text-slate-400 font-bold">📍 地點：</span>
-            <span class="font-medium text-slate-900">台灣（可配合區域調派）</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="text-slate-400 font-bold">💰 待遇：</span>
-            <span class="font-medium text-slate-900">月薪 70,000 ~ 75,000 元 (面議)</span>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- 四大核心數字徽章 -->
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-6 border-t border-slate-100">
-        <div class="p-3 bg-blue-50/50 rounded-xl border border-blue-100 text-center">
-          <div class="text-xl font-black text-blue-700">2 年</div>
-          <div class="text-[11px] font-medium text-slate-600">連鎖餐飲副店長</div>
-        </div>
-        <div class="p-3 bg-emerald-50/50 rounded-xl border border-emerald-100 text-center">
-          <div class="text-xl font-black text-emerald-700">70K</div>
-          <div class="text-[11px] font-medium text-slate-600">月薪績效肯定</div>
-        </div>
-        <div class="p-3 bg-purple-50/50 rounded-xl border border-purple-100 text-center">
-          <div class="text-xl font-black text-purple-700">FIFO</div>
-          <div class="text-[11px] font-medium text-slate-600">低耗損庫存管理</div>
-        </div>
-        <div class="p-3 bg-amber-50/50 rounded-xl border border-amber-100 text-center">
-          <div class="text-xl font-black text-amber-700">SOP</div>
-          <div class="text-[11px] font-medium text-slate-600">新人標準化培訓</div>
-        </div>
-      </div>
-    </header>
-
-    <!-- 2. 個人簡介與自傳定位 (Professional Summary) -->
-    <section class="space-y-2">
-      <div class="flex items-center gap-2 border-b border-slate-100 pb-2">
-        <span class="w-2.5 h-2.5 bg-blue-600 rounded-sm"></span>
-        <h2 class="text-sm font-bold uppercase tracking-wider text-slate-900">個人簡介與專業定位 (Professional Summary)</h2>
-      </div>
-      <p class="text-xs sm:text-sm text-slate-700 leading-relaxed text-justify">
-        具備 <b>2 年知名手搖茶飲連鎖門市副店長</b>管理實務經驗，全權統籌門市日常營運、全方位進銷存管理與新進同仁教育考核。專精原物料進貨驗收、安全水位掌控與效期先進先出 (FIFO)，能精準預估需求並壓制損耗成本；同時負責人員排班與出杯動線調度，具備極佳抗壓性與客訴危機應變力。高職畢業於<b>汽車修護科</b>，具備手工具實作、機電結構理解與邏輯排錯基礎，能自主排除門市設備突發卡料故障。在職期間憑藉務實之現場管理與優秀營運實績，<b>獲老闆拔擢並達月薪 70,000 元高標準肯定</b>。
-      </p>
-    </section>
-
-    <!-- 3. 工作經歷 (Work Experience) -->
-    <section class="space-y-4">
-      <div class="flex items-center gap-2 border-b border-slate-100 pb-2">
-        <span class="w-2.5 h-2.5 bg-blue-600 rounded-sm"></span>
-        <h2 class="text-sm font-bold uppercase tracking-wider text-slate-900">工作經歷 (Work Experience)</h2>
-      </div>
-
-      <div class="space-y-4">
-        <div class="p-4 sm:p-5 bg-slate-50/80 border border-slate-200 rounded-xl space-y-3">
-          
-          <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-            <div>
-              <span class="text-base font-bold text-slate-900">連鎖手搖飲門市</span>
-              <span class="text-sm font-semibold text-blue-600 ml-2">副店長 (Assistant Store Manager)</span>
-            </div>
-            <span class="text-xs font-semibold text-slate-500 bg-white px-2 py-1 rounded border border-slate-200">
-              全職｜任職 2 年（月薪 70,000 元）
-            </span>
-          </div>
-
-          <div class="space-y-2.5 text-xs sm:text-sm text-slate-700 leading-relaxed">
-            <div class="flex items-start gap-2">
-              <span class="font-bold text-blue-600 shrink-0">1. 進銷存與倉儲全流程精算：</span>
-              <span>主導全店原物料（茶葉、包材、生鮮乳品、糖漿等）進出貨驗收與每週定期盤點；建立安全庫存水位監控機制，落實先進先出 (FIFO)，有效降低原料過期與報廢損耗率約 15%。</span>
-            </div>
-            <div class="flex items-start gap-2">
-              <span class="font-bold text-blue-600 shrink-0">2. 員工培訓與 SOP 制度化：</span>
-              <span>統籌兼職與正職人員之職前與在職教育訓練（調飲配方標準、出杯速度、收銀禮儀與食品衛生規範），制定明確考核標準，大幅縮短新人獨立上手時間並提升服務滿意度。</span>
-            </div>
-            <div class="flex items-start gap-2">
-              <span class="font-bold text-blue-600 shrink-0">3. 門市營運調度與動線優化：</span>
-              <span>負責門市日常排班規劃，依據尖峰時段與天氣彈性調配備料與站吧人力；冷靜排解現場各類客訴與大量外送訂單衝擊，維持高出單周轉率。</span>
-            </div>
-            <div class="flex items-start gap-2">
-              <span class="font-bold text-blue-600 shrink-0">4. 設備第一線維護與故障排除：</span>
-              <span>結合汽修科背景，負責封口機、果糖機、製冰機等門市設備之基礎保養、刀具清理與簡易故障排查，大幅降低設備停機時間與原廠報修成本。</span>
-            </div>
-          </div>
-
-          <div class="flex flex-wrap gap-1.5 pt-1">
-            <span class="text-[11px] font-medium bg-white text-slate-600 px-2 py-0.5 rounded border border-slate-200">進銷存管理</span>
-            <span class="text-[11px] font-medium bg-white text-slate-600 px-2 py-0.5 rounded border border-slate-200">庫存盤點</span>
-            <span class="text-[11px] font-medium bg-white text-slate-600 px-2 py-0.5 rounded border border-slate-200">員工培訓 (OJT)</span>
-            <span class="text-[11px] font-medium bg-white text-slate-600 px-2 py-0.5 rounded border border-slate-200">排班與人力調度</span>
-            <span class="text-[11px] font-medium bg-white text-slate-600 px-2 py-0.5 rounded border border-slate-200">設備基礎檢修</span>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- 4. 專業技能與專長 (Skills & Core Strengths) -->
-    <section class="space-y-3">
-      <div class="flex items-center gap-2 border-b border-slate-100 pb-2">
-        <span class="w-2.5 h-2.5 bg-blue-600 rounded-sm"></span>
-        <h2 class="text-sm font-bold uppercase tracking-wider text-slate-900">核心專業技能 (Core Competencies)</h2>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1.5">
-          <div class="font-bold text-slate-900 text-sm">📦 庫存與物料管理</div>
-          <p class="text-slate-600 leading-relaxed">進銷存管理、採購進貨驗收、安全庫存設定、耗損率控管、效期 FIFO 管理。</p>
-        </div>
-        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1.5">
-          <div class="font-bold text-slate-900 text-sm">👥 團隊領導與培訓</div>
-          <p class="text-slate-600 leading-relaxed">新人調飲 SOP 訓練、工作站輪調考核、排班考勤調度、團隊向心力激勵。</p>
-        </div>
-        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1.5">
-          <div class="font-bold text-slate-900 text-sm">🔧 現場營運與機具排錯</div>
-          <p class="text-slate-600 leading-relaxed">尖峰出單動線優化、客訴衝突處理、封口機/製冰機保養、機械邏輯排錯。</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 5. 學歷背景 (Education) -->
-    <section class="space-y-3">
-      <div class="flex items-center gap-2 border-b border-slate-100 pb-2">
-        <span class="w-2.5 h-2.5 bg-blue-600 rounded-sm"></span>
-        <h2 class="text-sm font-bold uppercase tracking-wider text-slate-900">學歷背景 (Education)</h2>
-      </div>
-
-      <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 text-xs sm:text-sm">
         <div>
-          <span class="font-bold text-slate-900 text-base">高級職業學校</span>
-          <span class="text-slate-700 ml-2 font-medium">汽車修護科</span>
-          <span class="text-slate-500 ml-1">(高職畢業)</span>
+          <div class="text-base sm:text-lg font-black text-stone-900 tracking-tight leading-tight flex items-center gap-2">
+            陳韋志
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-100/70 text-emerald-800 border border-emerald-300/60">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              積極尋職中
+            </span>
+          </div>
+          <p class="text-[11px] font-medium text-stone-500">萬能科大企管系・門市營運與進銷存專家</p>
         </div>
-        <div class="text-xs text-slate-500">
-          修習手工具操作、機械檢測原理與系統性問題排除，養成實事求是之實作性格。
-        </div>
-      </div>
-    </section>
+      </a>
 
-    <!-- 6. 求職條件與結語 -->
-    <footer class="pt-6 border-t border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs text-slate-500">
-      <div class="space-y-1">
-        <div><b>期望職稱：</b>連鎖餐飲門市店長 / 營運督導 / 倉儲物流幹部</div>
-        <div><b>工作型態：</b>全職 (可配合輪班與排休)</div>
+      <!-- 桌面版導覽連結 -->
+      <nav class="hidden md:flex items-center space-x-1 lg:space-x-2 text-sm font-semibold text-stone-700">
+        <a href="#about" class="px-3 py-2 rounded-lg hover:text-blue-700 hover:bg-[#F2E7D8]/60 transition-colors">關於韋志</a>
+        <a href="#competencies" class="px-3 py-2 rounded-lg hover:text-blue-700 hover:bg-[#F2E7D8]/60 transition-colors">核心優勢</a>
+        <a href="#experience" class="px-3 py-2 rounded-lg hover:text-blue-700 hover:bg-[#F2E7D8]/60 transition-colors">實戰經歷</a>
+        <a href="#skills" class="px-3 py-2 rounded-lg hover:text-blue-700 hover:bg-[#F2E7D8]/60 transition-colors">專業技能</a>
+        <a href="#education" class="px-3 py-2 rounded-lg hover:text-blue-700 hover:bg-[#F2E7D8]/60 transition-colors">學歷背景</a>
+      </nav>
+
+      <!-- 右側動作按鈕 -->
+      <div class="hidden sm:flex items-center gap-2.5">
+        <button onclick="copyLineId()" class="px-3.5 py-2 text-xs font-bold text-stone-800 bg-[#FFFDF9] hover:bg-[#F7EFE4] border border-[#DDD0BF] rounded-xl shadow-sm transition-all flex items-center gap-1.5 active:scale-95">
+          <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12c0 2.85 1.2 5.41 3.11 7.24.13.13.19.31.16.49l-.47 2.76c-.05.29.2.54.49.49l2.84-.57c.17-.03.35.01.49.12C10.15 23.36 11.06 23.5 12 23.5c5.52 0 10-4.48 10-10S17.52 2 12 2z"/>
+          </svg>
+          <span id="nav-line-text">LINE: wajer1228</span>
+        </button>
+
+        <a href="#contact" class="px-4 py-2 text-xs font-bold text-white gradient-brand hover:brightness-110 rounded-xl shadow-md shadow-blue-800/20 transition-all flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+          </svg>
+          立即洽談
+        </a>
       </div>
-      <div class="no-print">
-        <button onclick="window.print()" class="px-4 py-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow transition-colors">
-          🖨️ 列印此履歷 / 另存為 PDF
+
+      <!-- 手機版選單切換按鈕 -->
+      <div class="flex items-center gap-2 sm:hidden">
+        <a href="#contact" class="px-3 py-1.5 text-xs font-bold text-white gradient-brand rounded-lg">洽談</a>
+        <button id="mobile-menu-btn" class="p-2 text-stone-700 hover:text-stone-900 focus:outline-none" aria-label="Toggle Menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
         </button>
       </div>
-    </footer>
 
-  </main>
+    </div>
 
-  <footer class="no-print text-center text-xs text-slate-400 mt-8 mb-4">
-    個人線上履歷網站 &copy; 2026. 支援直接列印、匯出標準 A4 PDF.
+    <!-- 手機版展開選單 -->
+    <div id="mobile-menu" class="hidden sm:hidden border-t border-[#E6DACB] bg-[#FAF5EE]/98 backdrop-blur px-4 py-3 space-y-2 text-sm font-semibold">
+      <a href="#about" class="block px-3 py-2 rounded-lg text-stone-700 hover:bg-[#EFE4D6]" onclick="closeMobileMenu()">關於韋志</a>
+      <a href="#competencies" class="block px-3 py-2 rounded-lg text-stone-700 hover:bg-[#EFE4D6]" onclick="closeMobileMenu()">核心優勢</a>
+      <a href="#experience" class="block px-3 py-2 rounded-lg text-stone-700 hover:bg-[#EFE4D6]" onclick="closeMobileMenu()">實戰經歷</a>
+      <a href="#skills" class="block px-3 py-2 rounded-lg text-stone-700 hover:bg-[#EFE4D6]" onclick="closeMobileMenu()">專業技能</a>
+      <a href="#education" class="block px-3 py-2 rounded-lg text-stone-700 hover:bg-[#EFE4D6]" onclick="closeMobileMenu()">學歷背景</a>
+      <a href="#contact" class="block px-3 py-2 rounded-lg text-blue-700 hover:bg-[#EFE4D6] font-bold" onclick="closeMobileMenu()">聯絡方式</a>
+    </div>
+  </header>
+
+  <!-- 2. 主視覺 Hero Section (溫潤漸層米白底) -->
+  <section id="hero" class="relative pt-12 pb-16 sm:pt-20 sm:pb-24 overflow-hidden border-b border-[#E6DACB]/80">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        
+        <!-- 左側核心文案 -->
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+          
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EFE3D3] border border-[#DFCBB5] text-stone-800 text-xs sm:text-sm font-bold shadow-sm">
+            <span class="w-2 h-2 rounded-full bg-blue-700"></span>
+            萬能科大企管系（在學中）✕ 連鎖茶飲副店長 2 年實績
+          </div>
+
+          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-stone-900 tracking-tight leading-[1.18]">
+            以<span class="gradient-text">企管科學思維</span>與<br class="hidden sm:inline">
+            <span class="gradient-text">精準進銷存掌控</span>，<br>
+            打造高人效、低損耗的獲利門市
+          </h1>
+
+          <p class="text-base sm:text-lg text-stone-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+            我是<b>陳韋志</b>。目前就讀於<b>萬能科技大學企業管理系（在學中）</b>，擁有 2 年知名連鎖手搖茶飲門市副店長管理實務。將企管專業理論（成本損益分析、組織排班、標準作業流程）與第一線營運深度整合，專精原物料安全水位精算（FIFO 先進先出）、新人快速帶店考核與客訴應變。在職期間憑藉優異營運人效與管理成果，獲老闆實質<b>月薪 7 萬元</b>高標肯定。
+          </p>
+
+          <!-- 動作按鈕群 -->
+          <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2">
+            <a href="#contact" class="px-6 py-3 text-sm font-bold text-white gradient-brand hover:brightness-110 rounded-xl shadow-lg shadow-blue-900/20 transition-all flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+              </svg>
+              立即加 LINE 洽談
+            </a>
+
+            <a href="mailto:wajer1228@gmail.com" class="px-5 py-3 text-sm font-bold text-stone-800 bg-[#FFFDF9] hover:bg-[#F2E7D8] border border-[#DDD0BF] rounded-xl shadow-sm transition-all flex items-center gap-2">
+              <svg class="w-4 h-4 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+              </svg>
+              發送電子郵件
+            </a>
+
+            <button onclick="window.print()" class="px-4 py-3 text-xs sm:text-sm font-semibold text-stone-600 hover:text-stone-900 transition-colors flex items-center gap-1.5" title="匯出或列印為標準紙本 PDF">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+              </svg>
+              匯出 PDF
+            </button>
+          </div>
+
+          <!-- 快速聯絡資訊膠囊 -->
+          <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4 text-xs font-medium text-stone-600 border-t border-[#E6DACB]">
+            <span class="flex items-center gap-1.5">
+              <span class="text-stone-400 font-bold">✉️ 信箱：</span>
+              <a href="mailto:wajer1228@gmail.com" class="text-stone-900 hover:text-blue-700 font-mono font-semibold">wajer1228@gmail.com</a>
+            </span>
+            <span class="flex items-center gap-1.5">
+              <span class="text-stone-400 font-bold">💬 LINE ID：</span>
+              <span class="text-stone-900 font-mono font-bold">wajer1228</span>
+            </span>
+            <span class="flex items-center gap-1.5">
+              <span class="text-stone-400 font-bold">🎓 學歷：</span>
+              <span class="text-stone-900 font-semibold">萬能科大企業管理系 在學中</span>
+            </span>
+          </div>
+
+        </div>
+
+        <!-- 右側專業名片與亮點看板 (Warm Card) -->
+        <div class="lg:col-span-5">
+          <div class="warm-card rounded-3xl card-hover overflow-hidden relative">
+            
+            <!-- 實務經歷封面照片 -->
+            <div class="relative h-28 sm:h-32 w-full overflow-hidden">
+              <img src="assets/images/tea-drink.jpg" alt="手搖茶飲門市" class="w-full h-full object-cover">
+              <div class="absolute inset-0 bg-gradient-to-t from-stone-900/75 via-stone-900/30 to-transparent"></div>
+              <span class="absolute bottom-2.5 left-4 text-xs font-bold text-white flex items-center gap-1.5 drop-shadow">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                連鎖茶飲門市營運 ✕ 實務管理
+              </span>
+            </div>
+
+            <div class="p-6 sm:p-7 space-y-5">
+              <div class="flex items-center justify-between border-b border-[#F0E6D8] pb-4">
+                <div>
+                  <span class="text-[11px] font-bold uppercase tracking-wider text-blue-700">Executive Profile</span>
+                  <h3 class="text-2xl font-black text-stone-900">陳韋志</h3>
+                  <p class="text-xs text-stone-500 mt-0.5">萬能科大企管系・門市營運經理</p>
+                </div>
+                <div class="w-12 h-12 rounded-2xl bg-[#F7EFE4] border border-[#E6DACB] flex items-center justify-center text-blue-700 font-black text-lg shadow-inner">
+                  WC
+                </div>
+              </div>
+
+            <!-- 期望條件與職務關鍵字 -->
+            <div class="space-y-3 text-xs">
+              <div class="flex items-center justify-between p-3 rounded-xl bg-[#FAF6F0] border border-[#EFE5D6]">
+                <span class="text-stone-500 font-medium">🎯 期望目標職位</span>
+                <span class="font-bold text-stone-900">門市店長 / 營運督導 / 倉儲主管</span>
+              </div>
+              <div class="flex items-center justify-between p-3 rounded-xl bg-[#FAF6F0] border border-[#EFE5D6]">
+                <span class="text-stone-500 font-medium">💰 期望薪資待遇</span>
+                <span class="font-black text-emerald-700 text-sm">月薪 70,000 ~ 75,000 元</span>
+              </div>
+              <div class="flex items-center justify-between p-3 rounded-xl bg-[#FAF6F0] border border-[#EFE5D6]">
+                <span class="text-stone-500 font-medium">⚡ 最快可到職日</span>
+                <span class="font-bold text-blue-700">積極面談・錄取後可立即到職</span>
+              </div>
+            </div>
+
+            <!-- 一鍵複製 LINE 區塊 -->
+            <div class="p-4 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-teal-500/5 border border-emerald-400/30 flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-sm shadow">
+                  LINE
+                </div>
+                <div>
+                  <div class="text-[11px] text-stone-500 font-medium">LINE ID (點擊一鍵複製)</div>
+                  <div class="text-sm font-black text-stone-900 font-mono tracking-wider">wajer1228</div>
+                </div>
+              </div>
+              <button onclick="copyLineId()" class="px-3.5 py-1.5 text-xs font-bold text-emerald-800 bg-[#FFFDF9] hover:bg-emerald-50 border border-emerald-300 rounded-lg shadow-sm transition-all active:scale-95">
+                複製 ID
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 四大核心營運數字看板 -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 pt-10 border-t border-[#E6DACB]">
+        
+        <div class="warm-card p-5 rounded-2xl card-hover text-center">
+          <div class="text-3xl font-black text-blue-700 tracking-tight">2+ <span class="text-sm font-semibold text-stone-400">年</span></div>
+          <div class="text-xs font-bold text-stone-800 mt-1">連鎖手搖飲副店長</div>
+          <div class="text-[11px] text-stone-500 mt-0.5">全權統籌門市日常運營</div>
+        </div>
+
+        <div class="warm-card p-5 rounded-2xl card-hover text-center">
+          <div class="text-3xl font-black text-emerald-700 tracking-tight">70K <span class="text-sm font-semibold text-stone-400">月薪</span></div>
+          <div class="text-xs font-bold text-stone-800 mt-1">高營運管理績效考核</div>
+          <div class="text-[11px] text-stone-500 mt-0.5">老闆實質高薪肯定</div>
+        </div>
+
+        <div class="warm-card p-5 rounded-2xl card-hover text-center">
+          <div class="text-3xl font-black text-indigo-700 tracking-tight">-15% <span class="text-sm font-semibold text-stone-400">耗損</span></div>
+          <div class="text-xs font-bold text-stone-800 mt-1">FIFO 精準庫存管理</div>
+          <div class="text-[11px] text-stone-500 mt-0.5">原物料安全水位監控</div>
+        </div>
+
+        <div class="warm-card p-5 rounded-2xl card-hover text-center">
+          <div class="text-3xl font-black text-amber-700 tracking-tight">企管 <span class="text-sm font-semibold text-stone-400">在學</span></div>
+          <div class="text-xs font-bold text-stone-800 mt-1">萬能科技大學企管系</div>
+          <div class="text-[11px] text-stone-500 mt-0.5">專業理論結合現場實務</div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 3. 關於韋志與職涯價值觀 (About Section) -->
+  <section id="about" class="py-16 sm:py-20 gradient-cream-bg">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      
+      <div class="text-center max-w-3xl mx-auto space-y-3 mb-12">
+        <span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-[#EFE3D3] px-3 py-1 rounded-full border border-[#DFCBB5]">About Me</span>
+        <h2 class="text-2xl sm:text-4xl font-black text-stone-900 tracking-tight">
+          懂營運數字、懂帶現場、懂成本精算的企管實戰型主管
+        </h2>
+        <p class="text-sm sm:text-base text-stone-600">
+          結合萬能科大企業管理系的管理思維與連鎖餐飲 2 年副店長實戰掌舵經驗
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <div class="warm-card p-6 rounded-2xl card-hover space-y-3">
+          <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center text-xl font-bold">
+            📦
+          </div>
+          <h3 class="text-base font-bold text-stone-900">精準掌控進銷存，降低每分耗損</h3>
+          <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+            門市利潤來自細節節流。透過每日安全庫存預估、嚴格執行效期先進先出 (FIFO)、每週/月盤點與報廢分析，成功壓低原料過期損耗率達 15%。
+          </p>
+        </div>
+
+        <div class="warm-card p-6 rounded-2xl card-hover space-y-3">
+          <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-xl font-bold">
+            👥
+          </div>
+          <h3 class="text-base font-bold text-stone-900">SOP 化培訓，快速複製團隊戰力</h3>
+          <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+            落實新人教育訓練（OJT），建立標準配方調製考核、出杯動線與服務應對禮儀。大幅縮短新人獨立上線週期，確保品質標準穩定不走味。
+          </p>
+        </div>
+
+        <div class="warm-card p-6 rounded-2xl card-hover space-y-3">
+          <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center text-xl font-bold">
+            📊
+          </div>
+          <h3 class="text-base font-bold text-stone-900">企管思維導入，科學化門市經營</h3>
+          <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+            就讀萬能科大企業管理系，將財務成本控管、行銷活動核算與組織人力調配理論活用於現場，精準掌握毛利結構與營業坪效。
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 4. 核心專業優勢 (Competencies) -->
+  <section id="competencies" class="py-16 sm:py-20 border-y border-[#E6DACB]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      
+      <div class="text-center max-w-3xl mx-auto space-y-3 mb-12">
+        <span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-[#EFE3D3] px-3 py-1 rounded-full border border-[#DFCBB5]">Core Competencies</span>
+        <h2 class="text-2xl sm:text-4xl font-black text-stone-900 tracking-tight">
+          四大核心管理實戰能力
+        </h2>
+        <p class="text-sm sm:text-base text-stone-600">
+          全方位支援連鎖總部、加盟門市與倉儲物流的多面向營運挑戰
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- 能力 1 -->
+        <div class="warm-card rounded-2xl card-hover overflow-hidden flex flex-col">
+          <div class="relative h-44 sm:h-48 overflow-hidden group">
+            <img src="assets/images/store-bar.jpg" alt="門市營運現場與吧台出杯動線" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-stone-900/60 via-transparent to-transparent"></div>
+            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-stone-900/80 backdrop-blur-md text-white font-black text-xs shadow">
+              01 門市現場營運
+            </span>
+            <span class="absolute bottom-3 left-3 text-white text-xs font-bold drop-shadow flex items-center gap-1.5">
+              🍵 現場動線分工 ✕ 尖峰高效率出杯
+            </span>
+          </div>
+          <div class="p-6 sm:p-7 space-y-4 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-lg font-bold text-stone-900">門市營運全流程統籌 (Store Operations)</h3>
+              <p class="text-xs text-stone-500 mt-1">從開店備料打烊、現金結帳核對到高效率尖峰出單動線</p>
+            </div>
+            <ul class="space-y-2 text-xs sm:text-sm text-stone-600 leading-relaxed pl-2 border-l-2 border-blue-200">
+              <li>• <b>現場動線優化</b>：針對點單、茶湯、加料、封口分工最佳化，縮短尖峰時段客人等待時間。</li>
+              <li>• <b>突發危機應變</b>：冷靜處理客訴退換貨、外送平台延遲與現場突發狀況，維護門市品牌好口碑。</li>
+              <li>• <b>金流日結清點</b>：每日營收結算、零用金管理與發票防弊核對，零帳務差錯紀錄。</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 能力 2 -->
+        <div class="warm-card rounded-2xl card-hover overflow-hidden flex flex-col">
+          <div class="relative h-44 sm:h-48 overflow-hidden group">
+            <img src="assets/images/inventory-storage.jpg" alt="原物料進銷存與倉儲管理" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-stone-900/60 via-transparent to-transparent"></div>
+            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-stone-900/80 backdrop-blur-md text-white font-black text-xs shadow">
+              02 原料進銷存
+            </span>
+            <span class="absolute bottom-3 left-3 text-white text-xs font-bold drop-shadow flex items-center gap-1.5">
+              📦 先進先出 (FIFO) ✕ 耗損降低 15%
+            </span>
+          </div>
+          <div class="p-6 sm:p-7 space-y-4 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-lg font-bold text-stone-900">原物料進銷存與庫存精算 (Inventory Control)</h3>
+              <p class="text-xs text-stone-500 mt-1">建立精準安全水位預測，杜絕斷貨與原料過期</p>
+            </div>
+            <ul class="space-y-2 text-xs sm:text-sm text-stone-600 leading-relaxed pl-2 border-l-2 border-emerald-200">
+              <li>• <b>嚴格先進先出 (FIFO)</b>：生鮮茶葉、鮮乳、珍珠與各式糖漿依標籤效期分區歸位，確保品質保鮮。</li>
+              <li>• <b>需求週期預估</b>：配合天候、節慶促銷與外送大單預先調整訂貨批量，兼顧新鮮度與倉儲空間。</li>
+              <li>• <b>定期實地盤點</b>：每週週期盤點與月底總盤，透過系統與實物比對揪出損耗漏洞。</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 能力 3 -->
+        <div class="warm-card rounded-2xl card-hover overflow-hidden flex flex-col">
+          <div class="relative h-44 sm:h-48 overflow-hidden group">
+            <img src="assets/images/team-training.jpg" alt="團隊教育培訓與排班調配" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-stone-900/60 via-transparent to-transparent"></div>
+            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-stone-900/80 backdrop-blur-md text-white font-black text-xs shadow">
+              03 團隊與排班
+            </span>
+            <span class="absolute bottom-3 left-3 text-white text-xs font-bold drop-shadow flex items-center gap-1.5">
+              👥 新人 OJT 實戰手把手 ✕ SOP 標準化
+            </span>
+          </div>
+          <div class="p-6 sm:p-7 space-y-4 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-lg font-bold text-stone-900">人員教育考核與排班調派 (People & Scheduling)</h3>
+              <p class="text-xs text-stone-500 mt-1">打造高向心力、低離職率的精實門市團隊</p>
+            </div>
+            <ul class="space-y-2 text-xs sm:text-sm text-stone-600 leading-relaxed pl-2 border-l-2 border-indigo-200">
+              <li>• <b>彈性排班調度</b>：依營業尖離峰歷史時段彈性配置全職與兼職人力，精準控制人事工時預算。</li>
+              <li>• <b>OJT 實戰培訓</b>：編撰新人標準作業手冊，透過實做示範、口試考核與即時糾偏確保標準一致。</li>
+              <li>• <b>團隊士氣凝聚</b>：重視雙向溝通與激勵機制，建立互助支援文化，降低餐飲常見流動率。</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 能力 4 -->
+        <div class="warm-card rounded-2xl card-hover overflow-hidden flex flex-col">
+          <div class="relative h-44 sm:h-48 overflow-hidden group">
+            <img src="assets/images/pos-analytics.jpg" alt="門市營運分析與成本精算" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-stone-900/60 via-transparent to-transparent"></div>
+            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-stone-900/80 backdrop-blur-md text-white font-black text-xs shadow">
+              04 成本數據分析
+            </span>
+            <span class="absolute bottom-3 left-3 text-white text-xs font-bold drop-shadow flex items-center gap-1.5">
+              📊 POS 數據分析 ✕ 毛利結構優化
+            </span>
+          </div>
+          <div class="p-6 sm:p-7 space-y-4 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-lg font-bold text-stone-900">門市營運分析與成本精算 (Business Analytics & Cost Control)</h3>
+              <p class="text-xs text-stone-500 mt-1">導入企管專業思維，精準控管經常性門市開銷</p>
+            </div>
+            <ul class="space-y-2 text-xs sm:text-sm text-stone-600 leading-relaxed pl-2 border-l-2 border-purple-200">
+              <li>• <b>毛利與客單價分析</b>：每日追蹤主力商品銷售佔比與加料加購率，優化點單話術以拉抬平均客單價。</li>
+              <li>• <b>行銷活動成本核算</b>：精準核算外送平台抽成、滿額折扣與促銷包材消耗，確保活動營收轉化為淨利。</li>
+              <li>• <b>損益指標改善</b>：從原料耗損、水電消耗到兼職工時配置多管齊下，維持門市高坪效與優質營收。</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 5. 工作經歷與實績 (Experience Timeline) -->
+  <section id="experience" class="py-16 sm:py-20 gradient-cream-bg">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      
+      <div class="text-center space-y-3 mb-12">
+        <span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-[#EFE3D3] px-3 py-1 rounded-full border border-[#DFCBB5]">Work Experience</span>
+        <h2 class="text-2xl sm:text-4xl font-black text-stone-900 tracking-tight">
+          實戰工作經歷
+        </h2>
+        <p class="text-sm sm:text-base text-stone-600">
+          以踏實的現場執行力與企管數據化管理，為門市創造扎實營運成果
+        </p>
+      </div>
+
+      <!-- 時間軸卡片 -->
+      <div class="relative pl-6 sm:pl-8 border-l-2 border-blue-600 space-y-8">
+        
+        <!-- 時間節點圓點 -->
+        <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-blue-600 ring-4 ring-[#EFE3D3]"></div>
+
+        <div class="warm-card rounded-2xl p-6 sm:p-8 card-hover space-y-5">
+          
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#F0E6D8] pb-4">
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-xl font-bold text-stone-900">知名連鎖手搖茶飲門市</h3>
+                <span class="px-2.5 py-0.5 text-xs font-bold rounded-full bg-blue-100 text-blue-800">全職</span>
+              </div>
+              <p class="text-base font-semibold text-blue-700 mt-0.5">副店長 (Assistant Store Manager)</p>
+            </div>
+            <div class="flex flex-col sm:items-end gap-1">
+              <span class="text-xs font-semibold text-stone-600 bg-[#F7EFE4] px-3 py-1 rounded-lg border border-[#DDD0BF]">
+                任職 2 年（積極求職中）
+              </span>
+              <span class="text-xs font-black text-emerald-800 bg-emerald-100/70 px-2.5 py-0.5 rounded border border-emerald-300/60">
+                月薪 70,000 元 績效肯定
+              </span>
+            </div>
+          </div>
+
+          <!-- 詳細職責條列 -->
+          <div class="space-y-3 text-xs sm:text-sm text-stone-700 leading-relaxed">
+            
+            <div class="flex items-start gap-2.5">
+              <span class="w-5 h-5 rounded-md bg-blue-700 text-white flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">1</span>
+              <div>
+                <b class="text-stone-900">原物料進出貨驗收與效期控管 (FIFO)：</b>
+                <span>全面負責每日進出貨驗收、冷藏冷凍分區儲存與每週週期盤點。嚴格推動先進先出制度，有效降低原物料過期損耗率達 15%。</span>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-2.5">
+              <span class="w-5 h-5 rounded-md bg-blue-700 text-white flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">2</span>
+              <div>
+                <b class="text-stone-900">新進同仁培訓與 SOP 標準化落實：</b>
+                <span>規劃到職教育訓練（OJT），親自指導點單收銀、茶湯沖煮、出杯動線與服務禮儀。制定檢核標準，縮短新人上手週期並確保出杯口感一致。</span>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-2.5">
+              <span class="w-5 h-5 rounded-md bg-blue-700 text-white flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">3</span>
+              <div>
+                <b class="text-stone-900">尖峰人力排班與動線優化調度：</b>
+                <span>精算各時段來客趨勢，依晴雨季與外送單量彈性排班，在遵守勞基法規範下發揮最高人效，化解尖峰擁擠與客訴。</span>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-2.5">
+              <span class="w-5 h-5 rounded-md bg-blue-700 text-white flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">4</span>
+              <div>
+                <b class="text-stone-900">門市營運數據追蹤與利潤極大化：</b>
+                <span>運用企管數據分析概念，落實每日營業額、杯數客單價與報廢比率追蹤；透過彈性備料與包材管控，實質提升門市獲利能力。</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- 實務營運照片圖組 (與手搖茶飲及門市經歷直接相關) -->
+          <div class="space-y-3 pt-3 border-t border-[#F0E6D8]">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-stone-900 flex items-center gap-1.5">
+                📸 門市實務營運紀實（現場真實執掌業務）
+              </span>
+              <span class="text-[11px] text-stone-500 font-medium">吧台調飲 ✕ 進銷存 ✕ 團隊SOP ✕ 營運數據</span>
+            </div>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <!-- 圖 1 -->
+              <div class="group rounded-xl overflow-hidden warm-card border border-[#E6DACB]">
+                <div class="h-28 sm:h-32 overflow-hidden">
+                  <img src="assets/images/store-bar.jpg" alt="門市吧台與茶湯萃取調製" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                </div>
+                <div class="p-2 bg-[#FFFDF9] text-center border-t border-[#EFE5D6]">
+                  <div class="text-[11px] font-bold text-stone-900">吧台現場出單</div>
+                  <div class="text-[10px] text-stone-500">尖峰動線最佳化</div>
+                </div>
+              </div>
+
+              <!-- 圖 2 -->
+              <div class="group rounded-xl overflow-hidden warm-card border border-[#E6DACB]">
+                <div class="h-28 sm:h-32 overflow-hidden">
+                  <img src="assets/images/inventory-storage.jpg" alt="原物料進銷存與先進先出FIFO" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                </div>
+                <div class="p-2 bg-[#FFFDF9] text-center border-t border-[#EFE5D6]">
+                  <div class="text-[11px] font-bold text-stone-900">進銷存 (FIFO)</div>
+                  <div class="text-[10px] text-stone-500">庫存損耗降低15%</div>
+                </div>
+              </div>
+
+              <!-- 圖 3 -->
+              <div class="group rounded-xl overflow-hidden warm-card border border-[#E6DACB]">
+                <div class="h-28 sm:h-32 overflow-hidden">
+                  <img src="assets/images/team-training.jpg" alt="團隊SOP標準化與新人OJT培訓" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                </div>
+                <div class="p-2 bg-[#FFFDF9] text-center border-t border-[#EFE5D6]">
+                  <div class="text-[11px] font-bold text-stone-900">團隊 SOP 培訓</div>
+                  <div class="text-[10px] text-stone-500">新人快速獨立帶店</div>
+                </div>
+              </div>
+
+              <!-- 圖 4 -->
+              <div class="group rounded-xl overflow-hidden warm-card border border-[#E6DACB]">
+                <div class="h-28 sm:h-32 overflow-hidden">
+                  <img src="assets/images/pos-analytics.jpg" alt="POS系統結帳與營運數據分析" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                </div>
+                <div class="p-2 bg-[#FFFDF9] text-center border-t border-[#EFE5D6]">
+                  <div class="text-[11px] font-bold text-stone-900">POS 數據分析</div>
+                  <div class="text-[10px] text-stone-500">客單價與毛利精算</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 關鍵技術標籤 -->
+          <div class="flex flex-wrap gap-2 pt-2 border-t border-[#F0E6D8]">
+            <span class="px-2.5 py-1 text-xs font-medium bg-[#F7EFE4] text-stone-700 rounded-lg border border-[#DDD0BF]">門市營運全盤掌控</span>
+            <span class="px-2.5 py-1 text-xs font-medium bg-[#F7EFE4] text-stone-700 rounded-lg border border-[#DDD0BF]">進銷存 (FIFO)</span>
+            <span class="px-2.5 py-1 text-xs font-medium bg-[#F7EFE4] text-stone-700 rounded-lg border border-[#DDD0BF]">安全庫存預測</span>
+            <span class="px-2.5 py-1 text-xs font-medium bg-[#F7EFE4] text-stone-700 rounded-lg border border-[#DDD0BF]">新人 OJT 培訓</span>
+            <span class="px-2.5 py-1 text-xs font-medium bg-[#F7EFE4] text-stone-700 rounded-lg border border-[#DDD0BF]">彈性排班調度</span>
+            <span class="px-2.5 py-1 text-xs font-medium bg-[#F7EFE4] text-stone-700 rounded-lg border border-[#DDD0BF]">企管數據分析</span>
+            <span class="px-2.5 py-1 text-xs font-medium bg-[#F7EFE4] text-stone-700 rounded-lg border border-[#DDD0BF]">門市成本控制</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 6. 專業技能與學歷背景 (Skills & Education) -->
+  <section id="skills" class="py-16 sm:py-20 border-t border-[#E6DACB]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- 左側：專業技能矩陣 -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="space-y-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-[#EFE3D3] px-3 py-1 rounded-full border border-[#DFCBB5]">Skills Matrix</span>
+            <h2 class="text-2xl sm:text-3xl font-black text-stone-900 tracking-tight">專業技能矩陣</h2>
+          </div>
+
+          <div class="space-y-4">
+            
+            <div class="warm-card p-5 rounded-2xl space-y-2">
+              <div class="flex justify-between items-center text-xs font-bold text-stone-800">
+                <span>進銷存與庫存效期管理 (FIFO / 盤點 / 水位控管)</span>
+                <span class="text-blue-700 font-extrabold">95%</span>
+              </div>
+              <div class="w-full bg-[#EFE4D6] h-2.5 rounded-full overflow-hidden">
+                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 95%"></div>
+              </div>
+            </div>
+
+            <div class="warm-card p-5 rounded-2xl space-y-2">
+              <div class="flex justify-between items-center text-xs font-bold text-stone-800">
+                <span>門市日常營運與現場危機應變 (排班 / 金流 / 客訴)</span>
+                <span class="text-blue-700 font-extrabold">92%</span>
+              </div>
+              <div class="w-full bg-[#EFE4D6] h-2.5 rounded-full overflow-hidden">
+                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 92%"></div>
+              </div>
+            </div>
+
+            <div class="warm-card p-5 rounded-2xl space-y-2">
+              <div class="flex justify-between items-center text-xs font-bold text-stone-800">
+                <span>團隊新進人員培訓與 SOP 制度考核 (OJT)</span>
+                <span class="text-blue-700 font-extrabold">90%</span>
+              </div>
+              <div class="w-full bg-[#EFE4D6] h-2.5 rounded-full overflow-hidden">
+                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 90%"></div>
+              </div>
+            </div>
+
+            <div class="warm-card p-5 rounded-2xl space-y-2">
+              <div class="flex justify-between items-center text-xs font-bold text-stone-800">
+                <span>企管經營思維與損益成本分析 (Cost & Margin Control)</span>
+                <span class="text-blue-700 font-extrabold">92%</span>
+              </div>
+              <div class="w-full bg-[#EFE4D6] h-2.5 rounded-full overflow-hidden">
+                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 92%"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 右側：學歷背景與企管專業優勢 -->
+        <div id="education" class="lg:col-span-5 space-y-6">
+          <div class="space-y-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-[#EFE3D3] px-3 py-1 rounded-full border border-[#DFCBB5]">Education</span>
+            <h2 class="text-2xl sm:text-3xl font-black text-stone-900 tracking-tight">學歷背景</h2>
+          </div>
+
+          <div class="warm-card p-6 rounded-2xl space-y-5">
+            
+            <div class="flex items-start gap-3.5">
+              <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-800 flex items-center justify-center text-2xl font-bold shrink-0">
+                🎓
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-stone-900">萬能科技大學</h3>
+                <p class="text-sm font-bold text-blue-700">企業管理系（在學中）</p>
+                <p class="text-xs text-stone-600 mt-2 leading-relaxed">
+                  專研企業經營策略、連鎖門市運營、供應鏈進銷存、組織行為學、人力資源管理與財務成本分析。
+                </p>
+              </div>
+            </div>
+
+            <!-- 理論與實務結合優勢說明 -->
+            <div class="p-4 rounded-xl bg-[#FAF6F0] border border-[#EFE5D6] space-y-2 text-xs">
+              <div class="font-bold text-stone-900 flex items-center gap-1.5">
+                <span class="text-blue-700">💡</span> 企管理論 ✕ 門市實戰的最佳結合
+              </div>
+              <p class="text-stone-600 leading-relaxed">
+                在學期間將企管系所學之<b>供應鏈進銷存控管、人資排班激勵、財務成本分析</b>直接付諸於 2 年連鎖餐飲副店長實務，邊學邊實戰驗證，以科學化經營取代傳統經驗法則，創造月薪 70K 卓越營運績效。
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 7. 聯絡與合作洽談 (Get in Touch - Full Modern CTA) -->
+  <section id="contact" class="py-16 sm:py-24 border-t border-[#E6DACB] gradient-cream-bg">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-8">
+      
+      <div class="space-y-3">
+        <span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-[#EFE3D3] px-3 py-1 rounded-full border border-[#DFCBB5]">Contact Me</span>
+        <h2 class="text-3xl sm:text-4xl font-black text-stone-900 tracking-tight">
+          期待為您的團隊創造營運價值
+        </h2>
+        <p class="text-sm sm:text-base text-stone-600 max-w-xl mx-auto">
+          若您正在尋找具備<b>高責任感、精通進銷存、懂帶團隊、能扛業績壓力</b>的門市營運經理或倉儲幹部，歡迎隨時透過下方管道與我聯繫！
+        </p>
+      </div>
+
+      <!-- 聯絡卡片網格 -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto text-left">
+        
+        <!-- LINE 聯絡卡片 -->
+        <div class="warm-card p-5 rounded-2xl card-hover flex items-center justify-between border-emerald-300/60 bg-[#FAFBF9]">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-emerald-700/20">
+              LINE
+            </div>
+            <div>
+              <div class="text-[11px] text-stone-500 font-semibold uppercase">通訊軟體 (最快聯絡)</div>
+              <div class="text-base font-black text-stone-900 font-mono">wajer1228</div>
+            </div>
+          </div>
+          <button onclick="copyLineId()" class="px-3.5 py-2 text-xs font-bold text-emerald-800 bg-[#FFFDF9] hover:bg-emerald-50 border border-emerald-300 rounded-xl shadow-sm transition-all active:scale-95">
+            複製 ID
+          </button>
+        </div>
+
+        <!-- Email 聯絡卡片 -->
+        <a href="mailto:wajer1228@gmail.com" class="warm-card p-5 rounded-2xl card-hover flex items-center justify-between group border-blue-300/60 bg-[#FAF9FD]">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-xl bg-blue-700 text-white flex items-center justify-center text-xl shadow-md shadow-blue-800/20">
+              ✉️
+            </div>
+            <div>
+              <div class="text-[11px] text-stone-500 font-semibold uppercase">電子信箱</div>
+              <div class="text-xs sm:text-sm font-bold text-stone-900 font-mono group-hover:text-blue-700 transition-colors">wajer1228@gmail.com</div>
+            </div>
+          </div>
+          <span class="text-blue-700 text-sm font-bold group-hover:translate-x-1 transition-transform">
+            寄信 &rarr;
+          </span>
+        </a>
+
+      </div>
+
+      <!-- 快捷操作列 -->
+      <div class="pt-4 flex flex-wrap justify-center items-center gap-4">
+        <a href="portfolio.html" class="px-4 py-2 text-xs font-semibold text-stone-700 bg-[#FFFDF9] hover:bg-[#F2E7D8] border border-[#DDD0BF] rounded-xl transition-colors">
+          切換為深色質感形象頁 &rarr;
+        </a>
+        <button onclick="window.print()" class="px-4 py-2 text-xs font-semibold text-stone-700 bg-[#FFFDF9] hover:bg-[#F2E7D8] border border-[#DDD0BF] rounded-xl transition-colors flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+          </svg>
+          匯出或列印為 PDF
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 8. 現代化頁尾 (Footer) -->
+  <footer class="bg-stone-900 text-stone-400 py-10 border-t border-stone-800 text-xs">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <div class="w-6 h-6 rounded-lg gradient-brand flex items-center justify-center text-white font-black text-xs">
+          韋
+        </div>
+        <span class="font-bold text-stone-200">陳韋志 | 個人線上專業履歷網站</span>
+      </div>
+      <div class="flex items-center gap-4 text-stone-400">
+        <a href="#hero" class="hover:text-white transition-colors">回到頂端</a>
+        <span>•</span>
+        <a href="mailto:wajer1228@gmail.com" class="hover:text-white transition-colors">聯絡韋志</a>
+        <span>•</span>
+        <a href="https://github.com/wajer1228-byte/resume" target="_blank" class="hover:text-white transition-colors">GitHub Repository</a>
+      </div>
+      <div>
+        &copy; 2026 陳韋志 (Wei-Chih Chen). All rights reserved.
+      </div>
+    </div>
   </footer>
+
+  <!-- 浮動複製提示 Toast -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-stone-900 text-white px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2 text-xs font-semibold opacity-0 pointer-events-none transition-all duration-300 transform translate-y-2">
+    <span class="text-emerald-400">✓</span>
+    <span id="toast-msg">已成功複製 LINE ID！</span>
+  </div>
+
+  <script>
+    // 複製 LINE ID 功能並跳出現代 Toast
+    function copyLineId() {
+      const lineId = 'wajer1228';
+      navigator.clipboard.writeText(lineId).then(() => {
+        showToast('已複製 LINE ID：wajer1228，歡迎隨時加好友洽談！');
+      }).catch(() => {
+        const input = document.createElement('input');
+        input.value = lineId;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
+        showToast('已複製 LINE ID：wajer1228！');
+      });
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-msg');
+      toastMsg.innerText = msg;
+      toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-2');
+      toast.classList.add('opacity-100', 'translate-y-0');
+      setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-2');
+      }, 3000);
+    }
+
+    // 手機版選單切換
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+    function closeMobileMenu() {
+      if (mobileMenu) mobileMenu.classList.add('hidden');
+    }
+  </script>
 
 </body>
 </html>
