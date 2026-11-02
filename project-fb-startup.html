@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小型餐飲創業評估與利弊分析 | 陳韋志 商業專案作品集</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #10b981, #06b6d4, #3b82f6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-glow {
+      background: radial-gradient(circle at 50% 20%, rgba(16, 185, 129, 0.15) 0%, rgba(15, 23, 42, 0) 70%);
+    }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 antialiased selection:bg-emerald-600 selection:text-white">
+
+  <!-- 頂部導覽列 -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="portfolio.html" class="flex items-center gap-2">
+        <span class="w-9 h-9 rounded-xl bg-emerald-600 flex items-center justify-center font-black text-white text-sm shadow-lg shadow-emerald-500/25">韋志</span>
+        <span class="font-bold text-base sm:text-lg text-white tracking-tight">陳韋志 | 商業專案分析</span>
+      </a>
+
+      <nav class="hidden md:flex items-center space-x-6 text-sm text-slate-300">
+        <a href="#criteria" class="hover:text-emerald-400 transition-colors">選品標準</a>
+        <a href="#benchmark" class="hover:text-emerald-400 transition-colors">標竿品牌評比</a>
+        <a href="#pros-cons" class="hover:text-emerald-400 transition-colors">三大模組利弊</a>
+        <a href="#pitfalls" class="hover:text-emerald-400 transition-colors">避坑警示</a>
+        <a href="#operations" class="hover:text-emerald-400 transition-colors">落地方案</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="portfolio.html" class="px-3.5 py-1.5 text-xs sm:text-sm font-semibold text-slate-200 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg transition-all flex items-center gap-1.5 shadow-sm">
+          ← 返回作品簡介
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主視覺 Hero -->
+  <section class="relative pt-32 pb-20 md:pt-40 md:pb-28 hero-glow overflow-hidden">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center space-y-8">
+      
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs sm:text-sm font-medium">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        餐飲企劃 ✕ 門市營運分析 ✕ 投資回報試算
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
+        現階段最值得投入的<br>
+        <span class="gradient-text">小型非葷食餐飲創業項目</span> 深度利弊分析
+      </h1>
+
+      <p class="max-w-3xl mx-auto text-sm sm:text-base text-slate-400 leading-relaxed">
+        從企管成本結構與門市現場營運視角出發，拆解全台門市 15 間以內、去廚師化、結構極簡、高毛利且具備極速複製特性的黑馬商業模型。
+      </p>
+
+      <!-- 四大核心數據看板 -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto pt-6">
+        <div class="bg-slate-800/60 border border-slate-700/60 rounded-2xl p-5 text-center backdrop-blur-sm">
+          <div class="text-2xl sm:text-3xl font-black text-emerald-400">68%~82%</div>
+          <div class="text-xs text-slate-400 mt-1 font-medium">嚴選模式預估毛利率</div>
+        </div>
+        <div class="bg-slate-800/60 border border-slate-700/60 rounded-2xl p-5 text-center backdrop-blur-sm">
+          <div class="text-2xl sm:text-3xl font-black text-white">&lt; 15 間</div>
+          <div class="text-xs text-slate-400 mt-1 font-medium">全台潛力小型連鎖規模</div>
+        </div>
+        <div class="bg-slate-800/60 border border-slate-700/60 rounded-2xl p-5 text-center backdrop-blur-sm">
+          <div class="text-2xl sm:text-3xl font-black text-blue-400">0 廚師依賴</div>
+          <div class="text-xs text-slate-400 mt-1 font-medium">徹底落實去技術化 SOP</div>
+        </div>
+        <div class="bg-slate-800/60 border border-slate-700/60 rounded-2xl p-5 text-center backdrop-blur-sm">
+          <div class="text-2xl sm:text-3xl font-black text-amber-400">8~15 坪</div>
+          <div class="text-xs text-slate-400 mt-1 font-medium">極小店坪效與快速回本</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 四大選品標準 Section -->
+  <section id="criteria" class="py-20 border-t border-slate-800 bg-slate-900/50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      
+      <div class="text-center max-w-2xl mx-auto space-y-3 mb-14">
+        <h2 class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Selection Criteria</h2>
+        <h3 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">創業專案四大篩選法則</h3>
+        <p class="text-xs sm:text-sm text-slate-400">避開傳統重資產紅海，鎖定高利潤與高生存率結構</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <div class="bg-slate-800/40 border border-slate-700/60 rounded-2xl p-6 space-y-3">
+          <div class="flex items-center gap-3">
+            <span class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-lg">🌱</span>
+            <h4 class="text-base font-bold text-white">1. 絕非葷食（避開肉品高損耗與冷鏈風險）</h4>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            生肉具備高腥味、易變質、血水污染與低溫冷鏈要求高的特性；非葷食（蔬食滷味、豆花甜品、植物茶飲）原物料損耗率遠低於葷食，且免除繁瑣屠宰處理與嚴苛油脂截留器。
+          </p>
+        </div>
+
+        <div class="bg-slate-800/40 border border-slate-700/60 rounded-2xl p-6 space-y-3">
+          <div class="flex items-center gap-3">
+            <span class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-lg">⚡</span>
+            <h4 class="text-base font-bold text-white">2. 餐飲結構極簡（去廚師化與極少 SKU）</h4>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            品項控制在 2~20 款以內，出餐工序精簡為「舀取、組裝、計時燙煮、標準按鍵」，完全不需依賴具經驗的炒菜大廚，新人 3~5 天即可無痛獨立輪班。
+          </p>
+        </div>
+
+        <div class="bg-slate-800/40 border border-slate-700/60 rounded-2xl p-6 space-y-3">
+          <div class="flex items-center gap-3">
+            <span class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-lg">📈</span>
+            <h4 class="text-base font-bold text-white">3. 營利能力優秀（高毛利與高坪效）</h4>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            跳脫百元便當價格戰泥淖，藉由文青風格、健康機能或單品精品化包裝，將客單價拉高至 80~280 元，毛利率穩定維持在 68%~82% 之健康水位。
+          </p>
+        </div>
+
+        <div class="bg-slate-800/40 border border-slate-700/60 rounded-2xl p-6 space-y-3">
+          <div class="flex items-center gap-3">
+            <span class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-lg">🔄</span>
+            <h4 class="text-base font-bold text-white">4. 可複製性極高（無油煙低資本支出）</h4>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            無重油煙、無明火，進駐百貨美食街、交通轉運站或住宅文青商圈時，能輕易通過環保局排煙與消防安檢，建置成本（CapEx）僅為傳統餐廳的 30%~50%。
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 標竿品牌評比表 Section -->
+  <section id="benchmark" class="py-20 border-t border-slate-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      
+      <div class="text-center max-w-2xl mx-auto space-y-3 mb-14">
+        <h2 class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Market Benchmark</h2>
+        <h3 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">全台 15 店以內標竿品牌評析</h3>
+        <p class="text-xs sm:text-sm text-slate-400">實際營運數據與擴展潛力比對</p>
+      </div>
+
+      <div class="overflow-x-auto rounded-2xl border border-slate-700 bg-slate-800/40 shadow-xl">
+        <table class="w-full text-left text-xs sm:text-sm text-slate-300">
+          <thead class="bg-slate-800 text-white font-bold border-b border-slate-700">
+            <tr>
+              <th class="p-4">品牌名稱 / 業態</th>
+              <th class="p-4">現有店數</th>
+              <th class="p-4">核心產品結構 (SKU)</th>
+              <th class="p-4">製程與出餐技術門檻</th>
+              <th class="p-4">毛利率 / 客單價</th>
+              <th class="p-4">可複製性評估</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-700/60">
+            <tr class="hover:bg-slate-800/50 transition-colors">
+              <td class="p-4">
+                <div class="font-bold text-white text-base">VEGE CREEK 蔬河</div>
+                <div class="text-xs text-slate-400">文青蔬食滷味</div>
+              </td>
+              <td class="p-4"><span class="px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-400 font-semibold text-xs">8 間</span></td>
+              <td class="p-4">單一藥膳高湯 + 獨立小包裝冷藏蔬菜、豆製品與麵食</td>
+              <td class="p-4 text-emerald-400 font-medium">極低（自選 $\to$ 燙煮 3 分鐘起鍋，0 廚師依賴）</td>
+              <td class="p-4 font-semibold text-white">68%～73%<br><span class="text-xs text-slate-400">NT$ 200～280</span></td>
+              <td class="p-4 text-emerald-400 font-medium">極高（無重油煙、8~15 坪百貨與街邊皆宜）</td>
+            </tr>
+
+            <tr class="hover:bg-slate-800/50 transition-colors">
+              <td class="p-4">
+                <div class="font-bold text-white text-base">白水豆花</div>
+                <div class="text-xs text-slate-400">天然單品甜品</div>
+              </td>
+              <td class="p-4"><span class="px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-400 font-semibold text-xs">2 間</span></td>
+              <td class="p-4">極端精簡 2~3 款豆花（深層水豆花 + 現刨麥芽花生糖 + 香菜）</td>
+              <td class="p-4 text-emerald-400 font-medium">極低（現舀裝碗、灑料，出餐只需 15 秒）</td>
+              <td class="p-4 font-semibold text-white">75%～82%<br><span class="text-xs text-slate-400">NT$ 80～95</span></td>
+              <td class="p-4 text-emerald-400 font-medium">極高（無廚房油煙、翻桌時間僅 12 分鐘）</td>
+            </tr>
+
+            <tr class="hover:bg-slate-800/50 transition-colors">
+              <td class="p-4">
+                <div class="font-bold text-white text-base">NUTTEA 堅果奶茶</div>
+                <div class="text-xs text-slate-400">100% 純植堅果茶飲</div>
+              </td>
+              <td class="p-4"><span class="px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-400 font-semibold text-xs">約 3~4 間</span></td>
+              <td class="p-4">5種堅果現磨乳化厚奶蓋 + 台灣優質茶基底</td>
+              <td class="p-4 text-emerald-400 font-medium">低（高階破壁機與萃茶機定時按鍵作業）</td>
+              <td class="p-4 font-semibold text-white">70%～75%<br><span class="text-xs text-slate-400">NT$ 95～135</span></td>
+              <td class="p-4 text-blue-400 font-medium">高（純植奶利基市場，8~10 坪標準吧台）</td>
+            </tr>
+
+            <tr class="hover:bg-slate-800/50 transition-colors">
+              <td class="p-4">
+                <div class="font-bold text-white text-base">SOMA 特調飲品</div>
+                <div class="text-xs text-slate-400">精品特調茶飲</div>
+              </td>
+              <td class="p-4"><span class="px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-400 font-semibold text-xs">5 間</span></td>
+              <td class="p-4">嚴格聚焦 15~20 款品項（茶歐蕾 / 特調 Mocktail）</td>
+              <td class="p-4 text-emerald-400 font-medium">低（黃金比例配方，標準茶湯提取出杯）</td>
+              <td class="p-4 font-semibold text-white">72%～78%<br><span class="text-xs text-slate-400">NT$ 70～120</span></td>
+              <td class="p-4 text-blue-400 font-medium">高（單店坪效居手搖業頂標，排隊效應強烈）</td>
+            </tr>
+
+            <tr class="hover:bg-slate-800/50 transition-colors">
+              <td class="p-4">
+                <div class="font-bold text-white text-base">約翰紅茶公司</div>
+                <div class="text-xs text-slate-400">單品紅茶專門手搖</div>
+              </td>
+              <td class="p-4"><span class="px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-400 font-semibold text-xs">4 間</span></td>
+              <td class="p-4">專注純紅茶與厚奶茶（SKU 極度克制）</td>
+              <td class="p-4 text-emerald-400 font-medium">低（標準蒸餾萃取與快速出杯）</td>
+              <td class="p-4 font-semibold text-white">70%～75%<br><span class="text-xs text-slate-400">NT$ 45～85</span></td>
+              <td class="p-4 text-blue-400 font-medium">高（原料品項極少，耗損率趨近於 0）</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 三大模組利弊深度剖析 Section -->
+  <section id="pros-cons" class="py-20 border-t border-slate-800 bg-slate-900/50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      
+      <div class="text-center max-w-2xl mx-auto space-y-3 mb-14">
+        <h2 class="text-xs font-bold text-emerald-400 uppercase tracking-widest">In-Depth Pros & Cons</h2>
+        <h3 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">三大潛力商業模式利弊剖析</h3>
+        <p class="text-xs sm:text-sm text-slate-400">從營運現場掌握優勢與預防潛在挑戰</p>
+      </div>
+
+      <div class="space-y-8">
+        
+        <!-- 模組 1 -->
+        <div class="bg-slate-800/60 border border-slate-700 rounded-3xl p-6 sm:p-8 space-y-6">
+          <div class="flex items-center justify-between flex-wrap gap-2">
+            <h4 class="text-lg font-bold text-white flex items-center gap-2">
+              <span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm font-black">A</span>
+              文青蔬食滷味模組（代表：VEGE CREEK 蔬河）
+            </h4>
+            <span class="text-xs px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 font-semibold border border-emerald-500/20">推薦指數：★★★★★</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs sm:text-sm">
+            <div class="p-5 rounded-2xl bg-emerald-950/20 border border-emerald-500/30 space-y-3">
+              <div class="font-bold text-emerald-400 flex items-center gap-2">
+                <span>✓</span> 核心優勢（利）
+              </div>
+              <ul class="space-y-2 text-slate-300">
+                <li>• <b>預包裝解決洗切痛點：</b>門市現場完全不需切菜砧板與大量洗菜廢水，直接上架。</li>
+                <li>• <b>單一湯底營運負擔極輕：</b>一鍋藥膳到底，不需準備多種辣度或麻辣鍋底，計時燙熟即可。</li>
+                <li>• <b>客單價大幅突破傳統：</b>透過文青書牆式自選陳列，客單價從傳統 120 元躍升至 220~260 元。</li>
+              </ul>
+            </div>
+
+            <div class="p-5 rounded-2xl bg-rose-950/20 border border-rose-500/30 space-y-3">
+              <div class="font-bold text-rose-400 flex items-center gap-2">
+                <span>⚠</span> 潛在挑戰（弊）
+              </div>
+              <ul class="space-y-2 text-slate-300">
+                <li>• <b>蔬菜冷藏週轉期短：</b>葉菜類保鮮期約 2~3 天，若連鎖規模未達標，中央叫貨與配送損耗會提高。</li>
+                <li>• <b>燙煮時間有物理極限：</b>尖峰時段每份餐需 3~4 分鐘煮熟，需配置多格燙麵機以防出餐塞車。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 模組 2 -->
+        <div class="bg-slate-800/60 border border-slate-700 rounded-3xl p-6 sm:p-8 space-y-6">
+          <div class="flex items-center justify-between flex-wrap gap-2">
+            <h4 class="text-lg font-bold text-white flex items-center gap-2">
+              <span class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center text-sm font-black">B</span>
+              極端精簡爆款甜品模組（代表：白水豆花）
+            </h4>
+            <span class="text-xs px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 font-semibold border border-blue-500/20">推薦指數：★★★★☆</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs sm:text-sm">
+            <div class="p-5 rounded-2xl bg-emerald-950/20 border border-emerald-500/30 space-y-3">
+              <div class="font-bold text-emerald-400 flex items-center gap-2">
+                <span>✓</span> 核心優勢（利）
+              </div>
+              <ul class="space-y-2 text-slate-300">
+                <li>• <b>極致毛利（>80%）：</b>主原料為黃豆、鹽滷與糖水，食材成本低廉，毛利率冠絕餐飲業。</li>
+                <li>• <b>超高速翻桌率：</b>15 秒出餐、客人 12 分鐘吃完，6 坪小店每日可翻桌高達 20 輪。</li>
+                <li>• <b>設備投資極低：</b>僅需冷藏庫與保溫筒，無明火、無重電，開幕裝潢與加盟門檻最低。</li>
+              </ul>
+            </div>
+
+            <div class="p-5 rounded-2xl bg-rose-950/20 border border-rose-500/30 space-y-3">
+              <div class="font-bold text-rose-400 flex items-center gap-2">
+                <span>⚠</span> 潛在挑戰（弊）
+              </div>
+              <ul class="space-y-2 text-slate-300">
+                <li>• <b>客單價有天花板：</b>單碗約 80~95 元，若缺乏大量觀光人潮或極佳排隊動線，營收總量易受限。</li>
+                <li>• <b>季節性波動較顯著：</b>冬季需增設溫熱甜品品項，否則冷天進店率可能下滑 25%~35%。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 模組 3 -->
+        <div class="bg-slate-800/60 border border-slate-700 rounded-3xl p-6 sm:p-8 space-y-6">
+          <div class="flex items-center justify-between flex-wrap gap-2">
+            <h4 class="text-lg font-bold text-white flex items-center gap-2">
+              <span class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center text-sm font-black">C</span>
+              純植機能飲品模組（代表：NUTTEA / SOMA）
+            </h4>
+            <span class="text-xs px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 font-semibold border border-purple-500/20">推薦指數：★★★★☆</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs sm:text-sm">
+            <div class="p-5 rounded-2xl bg-emerald-950/20 border border-emerald-500/30 space-y-3">
+              <div class="font-bold text-emerald-400 flex items-center gap-2">
+                <span>✓</span> 核心優勢（利）
+              </div>
+              <ul class="space-y-2 text-slate-300">
+                <li>• <b>避開 50 元手搖價格戰：</b>純植堅果奶精準打中乳糖不耐症、素食與健身高購買力客群，單價 110 元起。</li>
+                <li>• <b>標準化成熟度最高：</b>出杯設備、萃茶機與封口機皆有成熟供應鏈，店員 3 天內可上線。</li>
+                <li>• <b>外送佔比高：</b>茶飲易於配送，可藉由外送平台放大單店 3 公里半徑的訂單覆蓋。</li>
+              </ul>
+            </div>
+
+            <div class="p-5 rounded-2xl bg-rose-950/20 border border-rose-500/30 space-y-3">
+              <div class="font-bold text-rose-400 flex items-center gap-2">
+                <span>⚠</span> 潛在挑戰（弊）
+              </div>
+              <ul class="space-y-2 text-slate-300">
+                <li>• <b>堅果原料採購成本高：</b>進口堅果（腰果、榛果、杏仁）價格受國際匯率影響，需建立採購避險合約。</li>
+                <li>• <b>手搖飲品同業競爭激烈：</b>周邊競品替代性高，需極度仰賴品牌視覺與獨家風味建立護城河。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 避坑警示案例 Section -->
+  <section id="pitfalls" class="py-20 border-t border-slate-800">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      
+      <div class="bg-amber-950/20 border border-amber-500/30 rounded-3xl p-6 sm:p-8 space-y-6">
+        <div class="flex items-center gap-3">
+          <span class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-lg">⚠️</span>
+          <div>
+            <h4 class="text-lg font-bold text-white">避坑警示：八方雲集旗下「芳珍蔬食」縮編借鏡</h4>
+            <p class="text-xs text-amber-300/80">全盛期 30+ 間迅速縮減至個位數的關鍵教訓</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs sm:text-sm text-slate-300">
+          <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+            <div class="font-bold text-amber-400">1. 餐飲結構過度繁雜</div>
+            <p class="text-xs text-slate-400">
+              菜單涵蓋煎餃、水餃、乾麵、多款熱湯與現炒小菜。看似豐富，但前台人員動線嚴重打結，尖峰時段出餐速度延遲。
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+            <div class="font-bold text-amber-400">2. 重資產與排煙包袱</div>
+            <p class="text-xs text-slate-400">
+              同時需要煎台與煮麵鍋，高溫油煙重，排煙風管與油脂分離器動輒耗費數百萬元，小型利基市場無法承受高額攤提。
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+            <div class="font-bold text-amber-400">3. 人工工時與耗損攀升</div>
+            <p class="text-xs text-slate-400">
+              多種生鮮餡料與半成品需要前台精細包裝與烹煮，人工成本高昂，且非尖峰時段原料過期報廢率高達 8%~12%。
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 門市營運專家的落地方案 Section -->
+  <section id="operations" class="py-20 border-t border-slate-800 bg-slate-900/50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      
+      <div class="text-center max-w-2xl mx-auto space-y-3 mb-14">
+        <h2 class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Actionable Playbook</h2>
+        <h3 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">小型店落地四大營運核心模組</h3>
+        <p class="text-xs sm:text-sm text-slate-400">結合副店長進銷存實戰與企管分析的執行指南</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs sm:text-sm">
+        
+        <div class="bg-slate-800/40 border border-slate-700/60 rounded-2xl p-6 space-y-3">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">1</span>
+            <h4 class="text-base font-bold text-white">精準叫貨與安全庫存公式（FIFO）</h4>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            透過每日 POS 數據推算銷售週轉率，建立「常態銷售量 $\times$ 安全係數 (1.2) $+$ 配送前置期補量」標準叫貨模型，把原物料損耗壓低在 2% 以內。
+          </p>
+        </div>
+
+        <div class="bg-slate-800/40 border border-slate-700/60 rounded-2xl p-6 space-y-3">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold">2</span>
+            <h4 class="text-base font-bold text-white">去廚師化 OJT 師徒制培訓</h4>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            制定圖文並茂的 3 天站吧 SOP：第一天原物料識別與進銷存、第二天定時設備操作與裝碗、第三天尖峰實戰與客服應對，實現門市無痛換血。
+          </p>
+        </div>
+
+        <div class="bg-slate-800/40 border border-slate-700/60 rounded-2xl p-6 space-y-3">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">3</span>
+            <h4 class="text-base font-bold text-white">尖離峰彈性工時人效配置</h4>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            依據中午 11:30~13:30 與晚間 17:30~19:30 兩大高峰，配置 2 正職 + 2 兼職雙倍產能；離峰時段由 1~2 人維持運作，將人事成本率壓在 18%~22% 最佳區間。
+          </p>
+        </div>
+
+        <div class="bg-slate-800/40 border border-slate-700/60 rounded-2xl p-6 space-y-3">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold">4</span>
+            <h4 class="text-base font-bold text-white">低油煙選址降維打擊</h4>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            利用「無重油煙、無明火」優勢，優先搶進無法開瓦斯火的百貨 B2/B3 美食街拐角、高鐵/捷運共構樞紐或辦公大樓 1 樓，降低租金議價門檻。
+          </p>
+        </div>
+
+      </div>
+
+      <!-- 返回與聯絡按鈕 -->
+      <div class="text-center pt-12 space-x-4">
+        <a href="portfolio.html" class="inline-flex items-center px-6 py-3 text-sm font-bold text-white bg-emerald-600 hover:bg-emerald-500 rounded-xl shadow-lg shadow-emerald-600/30 transition-all">
+          ← 返回作品集首頁
+        </a>
+        <a href="portfolio.html#contact" class="inline-flex items-center px-6 py-3 text-sm font-semibold text-slate-300 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl transition-all">
+          聯絡陳韋志
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 頁尾 -->
+  <footer class="py-8 border-t border-slate-800 text-center text-xs text-slate-500">
+    <p>商業專案研究報告 &copy; 2026 陳韋志. 版權所有</p>
+  </footer>
+
+</body>
+</html>
