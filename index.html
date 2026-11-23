@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-TW" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
@@ -969,6 +969,523 @@
       if (mobileMenu) mobileMenu.classList.add('hidden');
     }
   </script>
+
+<!-- ==================== AI 數位履歷分身 Chatbot Widget 開始 (首頁整合版) ==================== -->
+<style>
+  #ai-chatbot-widget {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
+    font-family: 'Plus Jakarta Sans', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  /* 呼吸光暈懸浮按鈕：採用網站主色系藍色 (#1e3a8a ~ #0284c7) */
+  #chatbot-toggle-btn {
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #0284c7 100%);
+    border: 2px solid rgba(255, 255, 255, 0.85);
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.45);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    outline: none;
+    animation: chatbot-pulse 2.6s infinite;
+  }
+  #chatbot-toggle-btn:hover {
+    transform: scale(1.08) translateY(-2px);
+    box-shadow: 0 12px 32px rgba(2, 132, 199, 0.6);
+  }
+  @keyframes chatbot-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.65); }
+    70% { box-shadow: 0 0 0 18px rgba(37, 99, 235, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+  }
+
+  /* 提示標籤徽章 (提醒訪客點擊) */
+  .chatbot-badge-hint {
+    position: absolute;
+    top: -8px;
+    right: -4px;
+    background: #ef4444;
+    color: white;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 9999px;
+    box-shadow: 0 2px 6px rgba(239, 68, 68, 0.4);
+    border: 2px solid #ffffff;
+  }
+
+  /* 彈出對話視窗 (融入首頁高級米白/深藍毛玻璃質感) */
+  #chatbot-window {
+    display: none;
+    position: absolute;
+    bottom: 76px;
+    right: 0;
+    width: 380px;
+    max-width: calc(100vw - 32px);
+    height: 560px;
+    max-height: calc(100vh - 120px);
+    background: rgba(255, 253, 249, 0.96);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(226, 214, 197, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 20px 45px -10px rgba(41, 37, 36, 0.2), 0 0 20px rgba(37, 99, 235, 0.12);
+    flex-direction: column;
+    overflow: hidden;
+    animation: chatbot-slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  @keyframes chatbot-slideUp {
+    from { opacity: 0; transform: translateY(20px) scale(0.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* 標題欄 */
+  .chatbot-header {
+    background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 100%);
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+  }
+  .chatbot-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .chatbot-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    color: #1e3a8a;
+    font-size: 14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+  .chatbot-info h4 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .chatbot-status-tag {
+    font-size: 10px;
+    padding: 1px 6px;
+    background: rgba(16, 185, 129, 0.25);
+    color: #a7f3d0;
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    border-radius: 9999px;
+  }
+  .chatbot-subtext {
+    font-size: 11px;
+    color: #bfdbfe;
+    margin: 2px 0 0 0;
+  }
+  .chatbot-close-btn {
+    background: transparent;
+    border: none;
+    color: #bfdbfe;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+  }
+  .chatbot-close-btn:hover {
+    color: #ffffff;
+  }
+
+  /* 快速提問 Chips 膠囊標籤 */
+  .chatbot-chips-container {
+    padding: 10px 14px;
+    background: rgba(245, 236, 225, 0.7);
+    border-bottom: 1px solid rgba(226, 214, 197, 0.8);
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .chatbot-chips-container::-webkit-scrollbar {
+    display: none;
+  }
+  .chatbot-chip {
+    flex-shrink: 0;
+    font-size: 11px;
+    background: #ffffff;
+    color: #44403c;
+    border: 1px solid rgba(214, 197, 175, 0.9);
+    padding: 5px 12px;
+    border-radius: 14px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .chatbot-chip:hover {
+    background: #2563eb;
+    border-color: #2563eb;
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(37, 99, 235, 0.25);
+  }
+
+  /* 對話訊息區 */
+  .chatbot-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    scroll-behavior: smooth;
+    background: #FAF8F5;
+  }
+  .chatbot-messages::-webkit-scrollbar {
+    width: 4px;
+  }
+  .chatbot-messages::-webkit-scrollbar-thumb {
+    background: #d6c5af;
+    border-radius: 4px;
+  }
+
+  .chat-bubble {
+    max-width: 86%;
+    padding: 10px 14px;
+    border-radius: 16px;
+    font-size: 13px;
+    line-height: 1.6;
+    word-break: break-word;
+  }
+  .chat-bubble.ai {
+    align-self: flex-start;
+    background: #ffffff;
+    color: #292524;
+    border: 1px solid rgba(226, 214, 197, 0.85);
+    border-bottom-left-radius: 4px;
+    box-shadow: 0 2px 6px rgba(130, 100, 70, 0.05);
+  }
+  .chat-bubble.user {
+    align-self: flex-end;
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    color: #ffffff;
+    font-weight: 500;
+    border-bottom-right-radius: 4px;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+  }
+
+  /* 打字機遊標 */
+  .typing-cursor::after {
+    content: "▋";
+    font-size: 11px;
+    color: #2563eb;
+    animation: blink 0.8s infinite;
+    margin-left: 2px;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  /* 專案導流推薦按鈕 */
+  .chat-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    padding: 8px 14px;
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    color: #ffffff !important;
+    font-weight: 700;
+    font-size: 12px;
+    border-radius: 10px;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.28);
+    transition: all 0.2s ease;
+  }
+  .chat-action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+    color: #ffffff !important;
+  }
+
+  /* 輸入框列 */
+  .chatbot-input-bar {
+    padding: 10px 14px;
+    background: #ffffff;
+    border-top: 1px solid rgba(226, 214, 197, 0.8);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .chatbot-input-bar input {
+    flex: 1;
+    background: #FAF8F5;
+    border: 1px solid rgba(214, 197, 175, 0.8);
+    color: #292524;
+    font-size: 13px;
+    padding: 9px 14px;
+    border-radius: 12px;
+    outline: none;
+    transition: all 0.2s;
+  }
+  .chatbot-input-bar input:focus {
+    border-color: #2563eb;
+    background: #ffffff;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+  }
+  .chatbot-send-btn {
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+  }
+  .chatbot-send-btn:hover {
+    transform: scale(1.05);
+  }
+</style>
+
+<div id="ai-chatbot-widget">
+  <!-- 懸浮啟動按鈕 -->
+  <button id="chatbot-toggle-btn" aria-label="打開 AI 履歷助理">
+    <span class="chatbot-badge-hint">AI</span>
+    <!-- 機器人 SVG 圖示 -->
+    <svg id="chatbot-icon-open" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="11" width="18" height="10" rx="2"></rect>
+      <circle cx="12" cy="5" r="2"></circle>
+      <path d="M12 7v4"></path>
+      <line x1="8" y1="16" x2="8" y2="16"></line>
+      <line x1="16" y1="16" x2="16" y2="16"></line>
+    </svg>
+    <!-- 關閉 SVG 圖示 -->
+    <svg id="chatbot-icon-close" style="display:none;" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+    </svg>
+  </button>
+
+  <!-- 彈出對話視窗 -->
+  <div id="chatbot-window">
+    <div class="chatbot-header">
+      <div class="chatbot-profile">
+        <div class="chatbot-avatar">AI</div>
+        <div class="chatbot-info">
+          <h4>大明的 AI 數位分身 <span class="chatbot-status-tag">在線中</span></h4>
+          <p class="chatbot-subtext">企管專業 & 產業專案顧問</p>
+        </div>
+      </div>
+      <button class="chatbot-close-btn" id="chatbot-close-btn" aria-label="關閉對話視窗">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <!-- 4 個一鍵點選 Chips 標籤 -->
+    <div class="chatbot-chips-container">
+      <div class="chatbot-chip" data-query="請自我介紹">✨ 請自我介紹</div>
+      <div class="chatbot-chip" data-query="介紹你的產業分析專案">📊 介紹你的產業分析專案</div>
+      <div class="chatbot-chip" data-query="你的企管核心專長">💼 你的企管核心專長</div>
+      <div class="chatbot-chip" data-query="如何聯絡你">📬 如何聯絡你</div>
+    </div>
+
+    <!-- 對話記錄區 -->
+    <div class="chatbot-messages" id="chatbot-messages"></div>
+
+    <!-- 底部輸入列 -->
+    <div class="chatbot-input-bar">
+      <input type="text" id="chatbot-input-field" placeholder="輸入問題或點選上方標籤..." autocomplete="off" />
+      <button class="chatbot-send-btn" id="chatbot-send-btn" aria-label="發送訊息">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const toggleBtn = document.getElementById('chatbot-toggle-btn');
+  const closeBtn = document.getElementById('chatbot-close-btn');
+  const windowEl = document.getElementById('chatbot-window');
+  const iconOpen = document.getElementById('chatbot-icon-open');
+  const iconClose = document.getElementById('chatbot-icon-close');
+  const messagesContainer = document.getElementById('chatbot-messages');
+  const inputField = document.getElementById('chatbot-input-field');
+  const sendBtn = document.getElementById('chatbot-send-btn');
+  const chips = document.querySelectorAll('.chatbot-chip');
+
+  let isFirstOpen = true;
+  let isTyping = false;
+
+  // 規範預設歡迎詞
+  const welcomeMessage = "你好!我是大明的AI 數位分身,隨時為您介紹大明的企管專業與產業專案成果,想了解什麼呢?";
+
+  // 針對首頁履歷量身打造的豐富知識庫
+  const knowledgeBase = [
+    {
+      keywords: ["自我介紹", "你是誰", "陳韋志", "大明", "背景", "學歷", "經歷"],
+      answer: "您好！我是陳韋志（大明）的 AI 數位分身 🎓\n" +
+              "• <b>學歷背景</b>：萬能科技大學 企業管理系（在學中）。\n" +
+              "• <b>核心經歷</b>：2 年連鎖手搖飲副店長管理實務，獲得月薪 70K 高績效肯定！\n" +
+              "• <b>個人特質</b>：兼具企管策略思維與第一線營運執行力，專精於進銷存 FIFO 損耗控制、門市團隊激勵與標準化 SOP 建置。"
+    },
+    {
+      keywords: ["產業分析", "專案", "小型餐飲", "創業", "成果", "研究"],
+      answer: "【專案成果：小型餐飲創業評估與利弊分析】條理剖析：\n" +
+              "1. <b>產業痛點洞察</b>：餐飲業面臨高租金、缺工與原物料波動三重壓力。\n" +
+              "2. <b>策略解法落地</b>：透過「模組化 SOP 製程」搭配「低油煙選址降維打擊」，搶攻百貨美食街、交通樞紐等高坪效據點。\n" +
+              "3. <b>量化財務效益</b>：預估可有效降低 35% 初期資本支出（CAPEX），顯著提早達到損益平衡點！\n\n" +
+              "<a href='project-fb-startup.html' class='chat-action-btn'>👉 點此閱讀完整的專案報告與深度分析 &rarr;</a>"
+    },
+    {
+      keywords: ["企管", "專長", "核心", "技能", "管理", "進銷存", "能力"],
+      answer: "大明的四大企管核心專長如下：\n" +
+              "1. <b>精實進銷存管理 (FIFO)</b>：落實原料先進先出與安全庫存水位測算，有效壓低耗損率。\n" +
+              "2. <b>門市營運與團隊領導</b>：排班排程最佳化、新進人員培訓 SOP 制定、團隊激勵營造高向心力。\n" +
+              "3. <b>商業策略與損益分析</b>：精準測算固定/變動成本、損益平衡點（BEP）評估與定價策略。\n" +
+              "4. <b>顧客體驗與危機處理</b>：客訴高 EQ 迅速排解、顧客滿意度與回購率提升。"
+    },
+    {
+      keywords: ["聯絡", "聯繫", "email", "line", "電話", "信箱", "如何聯絡"],
+      answer: "非常歡迎隨時與大明聯繫與洽談合作！\n" +
+              "• <b>電子信箱</b>：<a href='mailto:wajer1228@gmail.com' style='color:#1d4ed8;font-weight:600;'>wajer1228@gmail.com</a>\n" +
+              "• <b>LINE ID</b>：<b>wajer1228</b>\n" +
+              "• <b>所在地</b>：台灣\n\n" +
+              "<a href='#contact' class='chat-action-btn' onclick='document.getElementById(\"chatbot-window\").style.display=\"none\";'>📬 跳轉至頁面聯絡專區 &rarr;</a>"
+    }
+  ];
+
+  function toggleChatbot() {
+    const isVisible = windowEl.style.display === 'flex';
+    if (isVisible) {
+      windowEl.style.display = 'none';
+      iconOpen.style.display = 'block';
+      iconClose.style.display = 'none';
+    } else {
+      windowEl.style.display = 'flex';
+      iconOpen.style.display = 'none';
+      iconClose.style.display = 'block';
+      if (isFirstOpen) {
+        isFirstOpen = false;
+        typeAIMessage(welcomeMessage);
+      }
+      setTimeout(() => inputField.focus(), 300);
+    }
+  }
+
+  toggleBtn.addEventListener('click', toggleChatbot);
+  closeBtn.addEventListener('click', toggleChatbot);
+
+  function typeAIMessage(htmlContent, callback) {
+    if (isTyping) return;
+    isTyping = true;
+
+    const msgBubble = document.createElement('div');
+    msgBubble.className = 'chat-bubble ai typing-cursor';
+    messagesContainer.appendChild(msgBubble);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+    let currentIdx = 0;
+    const tempContainer = document.createElement('div');
+    tempContainer.innerHTML = htmlContent;
+    const plainText = tempContainer.innerHTML;
+
+    const timer = setInterval(() => {
+      if (plainText[currentIdx] === '<') {
+        const tagClose = plainText.indexOf('>', currentIdx);
+        if (tagClose !== -1) {
+          currentIdx = tagClose + 1;
+        } else {
+          currentIdx++;
+        }
+      } else {
+        currentIdx++;
+      }
+
+      msgBubble.innerHTML = plainText.substring(0, currentIdx);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+      if (currentIdx >= plainText.length) {
+        clearInterval(timer);
+        msgBubble.classList.remove('typing-cursor');
+        isTyping = false;
+        if (callback) callback();
+      }
+    }, 18);
+  }
+
+  function sendUserMessage(text) {
+    if (!text || !text.trim() || isTyping) return;
+    
+    const userBubble = document.createElement('div');
+    userBubble.className = 'chat-bubble user';
+    userBubble.textContent = text.trim();
+    messagesContainer.appendChild(userBubble);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+    inputField.value = '';
+
+    const cleanText = text.toLowerCase();
+    let reply = "感謝您的提問！大明具備紮實的企管思維與 2 年連鎖門市實務營運經驗，歡迎隨時透過下方聯絡方式或點選上方標籤進一步了解！";
+    
+    for (let item of knowledgeBase) {
+      if (item.keywords.some(kw => cleanText.includes(kw.toLowerCase()))) {
+        reply = item.answer;
+        break;
+      }
+    }
+
+    setTimeout(() => {
+      typeAIMessage(reply);
+    }, 350);
+  }
+
+  sendBtn.addEventListener('click', () => sendUserMessage(inputField.value));
+  inputField.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      sendUserMessage(inputField.value);
+    }
+  });
+
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const query = chip.getAttribute('data-query');
+      sendUserMessage(query);
+    });
+  });
+})();
+</script>
+<!-- ==================== AI 數位履歷分身 Chatbot Widget 結束 ==================== -->
 
 </body>
 </html>
